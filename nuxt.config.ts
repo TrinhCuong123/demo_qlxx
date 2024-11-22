@@ -15,8 +15,4 @@ export default defineNuxtConfig({
           }
       }
   },
-  app: {
-    baseURL: '/demo_qlxx', // Cập nhật đúng tên repository của bạn trên GitHub
-  },
-  target: 'static',  //Tạo một website tĩnh để có thể deploy lên GitHub Pages
 })
