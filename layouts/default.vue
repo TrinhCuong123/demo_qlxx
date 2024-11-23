@@ -1,27 +1,35 @@
 <template>
   <div class="layout-container">
     <!-- Header -->
-    <header class="header bg-gray-800 text-white p-4">
-      <h1>My App</h1>
+    <header class="header bg-white text-black p-4 mr[30px]">
+
       <nav>
-        <NuxtLink to="/"></NuxtLink> | 
-        <NuxtLink to="/about">About</NuxtLink>
+        
       </nav>
     </header>
 
     <div class="content-container">
       <!-- Sidebar -->
-      <aside class="sidebar bg-gray-100 p-4">
+      <aside class="sidebar bg-gray-100">
+        <NuxtLink to="/">
+          <img src="~/assets/fonts/cuong_logo-gara1.svg" alt="" height="90" width="190">
+        </NuxtLink>
         <h2>Sidebar</h2>
         <ul>
-          <li><NuxtLink to="/">Dashboard</NuxtLink></li>
-          <li><NuxtLink to="/about">About Us</NuxtLink></li>
-          <li><NuxtLink to="/settings">Settings</NuxtLink></li>
+          <li>
+            <NuxtLink to="/">Dashboard</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/about">About Us</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/settings">Settings</NuxtLink>
+          </li>
         </ul>
       </aside>
 
       <!-- Nội dung chính -->
-      <main class="main-content p-4">
+      <main class="main-content m-4">
         <slot />
       </main>
     </div>
@@ -39,6 +47,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #F5F5F5;
 }
 
 /* Header */
@@ -54,6 +63,7 @@
 
 /* Sidebar */
 .sidebar {
+  z-index: 2;
   width: 250px;
   flex-shrink: 0;
   background-color: #f8f9fa;
