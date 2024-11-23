@@ -15,4 +15,9 @@ export default defineNuxtConfig({
           }
       }
   },
+  nitro: {
+    routes: {
+      '/': { redirect: '/login' }, // Thay thế bằng trang bạn muốn chuyển hướng
+    },
+  },
 })

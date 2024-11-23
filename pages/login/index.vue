@@ -26,7 +26,7 @@
               :toggle-mask="true" :invalid="errors.password != null" class="mb-4" />
           </div>
           <span class="text-red-500">{{ errors.password }}</span>
-          <Button type="submit" label="Đăng nhập" class="w-full mt-5" style="background-color: #DEE33E;" @click="onSubmit" />
+          <Button type="submit" label="Đăng nhập" class="btn w-full mt-5 border-none" style="background-color: #DEE33E;" @click="onSubmit" />
           <Toast />
         </div>
       </div>
@@ -34,11 +34,15 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { useRouter } from 'vue-router'; // Sử dụng useRouter thay vì useRoute
 import { useToast } from 'primevue/usetoast';
+
+definePageMeta({
+  layout: false // Không sử dụng layout nào
+});
 
 const router = useRouter(); // Đây là cách đúng để lấy router instance
 const toast = useToast();
@@ -62,7 +66,7 @@ const onSubmit = handleSubmit(() => {
     });
     setTimeout(() => {
       router.push({ path: "/trang-chu" }); // Đảm bảo gọi đúng method trên router instance
-    }, 1000);
+    }, 100);
   }
   else{
     toast.add({
@@ -85,5 +89,10 @@ const onSubmit = handleSubmit(() => {
   /* Đảm bảo chiều cao luôn là 100% màn hình */
   background-color: #DEE33E;
   /* Màu nền */
+  .btn:hover {
+    background-color: rgba(222, 227, 62, 1);
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
 }
 </style>
