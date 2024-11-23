@@ -66,7 +66,7 @@ const onSubmit = handleSubmit(() => {
     });
     setTimeout(() => {
       router.push({ path: "/trang-chu" }); // Đảm bảo gọi đúng method trên router instance
-    }, 100);
+    }, 1000);
   }
   else{
     toast.add({
