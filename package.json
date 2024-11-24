@@ -11,8 +11,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.1.0",
     "@nuxt/eslint": "^0.7.1",
     "@primevue/themes": "^4.2.3",
+    "chart.js": "^4.4.6",
     "nuxt": "^3.14.1592",
     "primeicons": "^7.0.0",
     "primevue": "^4.2.3",

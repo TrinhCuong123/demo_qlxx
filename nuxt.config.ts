@@ -20,4 +20,7 @@ export default defineNuxtConfig({
       '/': { redirect: '/login' }, // Thay thế bằng trang bạn muốn chuyển hướng
     },
   },
+  css: [
+    '~/assets/css/main.css'
+  ]
 })
