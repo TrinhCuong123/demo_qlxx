@@ -87,7 +87,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-lg w-full">
+        <div class="span-col-1 bg-white rounded-lg w-full">
           <div style="display: flex; align-items: center;" class="m-4 pl-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="38" viewBox="0 0 64 64">
               <path fill="#9FA324"
@@ -124,37 +124,22 @@
       <div class="flex justify-items-center gap-4 m-5 ">
         <div class=" bg-white rounded-lg w-full">
           <div style=" align-items: center;" class="m-4 pl-3">
-            <div>
-              <div class="text-sm opacity-80">Doanh thu của năm</div>
-              <div class="text-xl font-bold">500.000.000 &#8363;</div>
+            <div class="flex gap-9 justify-center">
+              <div>
+                <div class="text-sm opacity-80">Doanh thu cả năm</div>
+                <div class="text-xl font-bold">500.000.000 &#8363;</div>
+              </div>
+              <div>
+                <div class="text-sm opacity-80">Chi phí cả năm</div>
+                <div class="text-xl font-bold">500.000.000 &#8363;</div>
+              </div>
+              <div>
+                <div class="text-sm opacity-80">Lợi nhuận cả năm</div>
+                <div class="text-xl font-bold">500.000.000 &#8363;</div>
+              </div>
             </div>
             <div class="card w-full">
               <Chart type="bar" :data="chartData" :options="chartOptions" class="h-[20rem]" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 justify-items-center gap-4 m-5">
-        <div class="col-span-1 bg-white rounded-lg w-full">
-          <div style=" align-items: center;" class="m-4 pl-3">
-            <div>
-              <div class="text-sm opacity-80">Doanh thu tháng 12</div>
-              <div class="text-xl font-bold">50.000.000 &#8363;</div>
-            </div>
-            <div class="card flex justify-center">
-              <Chart type="pie" :data="chartDataPie" :options="chartOptionPie" class="w-full md:w-[20rem]" />
-            </div>
-          </div>
-        </div>
-        <div class="col-span-1 bg-white rounded-lg w-full">
-          <div style=" align-items: center;" class="m-4 pl-3">
-            <div>
-              <div class="text-sm opacity-80">Doanh thu tháng 12</div>
-              <div class="text-xl font-bold">50.000.000 &#8363;</div>
-            </div>
-            <div class="card flex justify-center">
-              <Chart type="pie" :data="chartDataPie" :options="chartOptionPie" class="w-full md:w-[20rem]" />
             </div>
           </div>
         </div>
@@ -174,38 +159,65 @@
           </div>
         </div>
 
-        <div class="w-100 h-screen">
+        <div class="w-full h-[500px]">
           <ClientOnly>
             <LMap ref="map" :options="{ attributionControl: false }" :zoom="5" :center="[17.175763, 106.699218]"
               :use-global-leaflet="false">
               <!-- <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png" layer-type="base" name="OpenStreetMap" /> -->
+              <LTileLayer url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" attribution="&copy; Google Maps"
+                layer-type="base" name="Bản đồ vệ tinh Google" />
 
-              <LMap ref="map" :options="{ attributionControl: false }" :zoom="5" :center="[17.175763, 106.699218]"
-                :use-global-leaflet="false">
-                <!-- Lớp bản đồ 1: Google Satellite -->
-                <LTileLayer url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" attribution="&copy; Google Maps"
-                  layer-type="base" name="Bản đồ Vệ tinh Google" />
+              <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png"
+                attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
+                layer-type="base" name="Bản đồ đường phố" />
 
-                <!-- Lớp bản đồ 2: Google Terrain -->
-                <LTileLayer url="https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}" attribution="&copy; Google Maps"
-                  layer-type="base" name="Bản đồ Địa hình Google" />
 
-                <!-- Lớp bản đồ 3: OpenTopoMap -->
-                <LTileLayer url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-                  attribution="Map data: &copy; <a href=&quot;https://www.opentopomap.org/&quot;>OpenTopoMap</a>"
-                  layer-type="base" name="Bản đồ Địa hình Mở" />
-
-                <!-- <LTileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
-                  layer-type="base" name="Bản đồ Đường phố Mở" /> -->
-                <!-- Lớp điều khiển Layers Control -->
-                <LControlLayers position="topright" />
-              </LMap>
+              <!-- Lớp điều khiển Layers Control -->
+              <LControlLayers position="topright" />
             </LMap>
           </ClientOnly>
         </div>
       </div>
     </div>
+  </div>
+  <div class="grid grid-cols-3 justify-items-center gap-4 mx-3">
+    <div class="col-span-1 bg-white rounded-lg w-full">
+      <div style=" align-items: center;" class="m-4 pl-3">
+        <div>
+          <div class="text-sm opacity-80">Lợi nhuận cả năm</div>
+          <div class="text-xl font-bold">200.000.000 &#8363;</div>
+        </div>
+        <div class="flex justify-center mt-10">
+          <Chart type="line" :data="chartDataLines" :options="chartOptionsLines" class="w-full h-[20rem]" />
+        </div>
+      </div>
+    </div>
+    <div class="col-span-1 bg-white rounded-lg w-full">
+      <div style=" align-items: center;" class="m-4 pl-3">
+        <div>
+          <div class="text-sm opacity-80">Doanh thu tháng 12</div>
+          <div class="text-xl font-bold">50.000.000 &#8363;</div>
+        </div>
+        <div class="card flex justify-center">
+          <Chart type="pie" :data="chartDataPie" :options="chartOptionPie" class="w-full md:w-[20rem]" />
+        </div>
+      </div>
+    </div>
+    <div class="col-span-1 bg-white rounded-lg w-full">
+      <div style=" align-items: center;" class="m-4 pl-3">
+        <div>
+          <div class="text-sm opacity-80">Tổng dư nợ tháng 12</div>
+          <div class="text-xl font-bold">50.000.000 &#8363;</div>
+        </div>
+        <div>
+          <TrangChuTongDuNo :is-visible="isVisible" @hide-modal="isVisible = false" />
+        </div>
+        <div class="mt-3 mr-3 font-bold text-sm flex justify-end italic underline" style="cursor: pointer;">
+          <a @click="isOpenModel">Xem thêm</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -220,10 +232,21 @@ onMounted(() => {
   chartOptions.value = setChartOptions();
   chartDataPie.value = setChartDataPie();
   chartOptionPie.value = setChartOptionPies();
+  chartDataLines.value = setChartDataLines();
+  chartOptionsLines.value = setChartDataLines();
 });
 
 const chartData = ref();
 const chartOptions = ref();
+const chartDataPie = ref();
+const chartOptionPie = ref();
+const chartDataLines = ref();
+const chartOptionsLines = ref();
+const isVisible = ref();
+
+const isOpenModel = () => {
+  isVisible.value = true;
+}
 
 const setChartData = () => {
   const documentStyle = getComputedStyle(document.documentElement);
@@ -267,6 +290,7 @@ const setChartOptions = () => {
         intersect: false,
       },
       legend: {
+        position: 'bottom',
         labels: {
           color: textColor
         }
@@ -295,10 +319,6 @@ const setChartOptions = () => {
   };
 }
 
-
-const chartDataPie = ref();
-const chartOptionPie = ref();
-
 const setChartDataPie = () => {
   const documentStyle = getComputedStyle(document.body);
 
@@ -321,6 +341,7 @@ const setChartOptionPies = () => {
   return {
     plugins: {
       legend: {
+        position: 'bottom',
         labels: {
           usePointStyle: true,
           color: textColor
@@ -329,6 +350,75 @@ const setChartOptionPies = () => {
     }
   };
 };
+
+const setChartDataLines = () => {
+  const documentStyle = getComputedStyle(document.documentElement);
+
+  return {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'First Dataset',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        tension: 0.4,
+        borderColor: documentStyle.getPropertyValue('--p-cyan-500')
+      },
+      {
+        label: 'Second Dataset',
+        data: [28, 48, 40, 19, 86, 27, 90],
+        fill: false,
+        borderDash: [5, 5],
+        tension: 0.4,
+        borderColor: documentStyle.getPropertyValue('--p-orange-500')
+      },
+      {
+        label: 'Third Dataset',
+        data: [12, 51, 62, 33, 21, 62, 45],
+        fill: true,
+        borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+        tension: 0.4,
+        backgroundColor: 'rgba(107, 114, 128, 0.2)'
+      }
+    ]
+  };
+};
+const setChartOptionLines = () => {
+  const documentStyle = getComputedStyle(document.documentElement);
+  const textColor = documentStyle.getPropertyValue('--p-text-color');
+  const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+  const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+  return {
+    maintainAspectRatio: false,
+    aspectRatio: 0.6,
+    plugins: {
+      legend: {
+        labels: {
+          color: textColor
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: textColorSecondary
+        },
+        grid: {
+          color: surfaceBorder
+        }
+      },
+      y: {
+        ticks: {
+          color: textColorSecondary
+        },
+        grid: {
+          color: surfaceBorder
+        }
+      }
+    }
+  };
+}
 </script>
 
 <style></style>

@@ -50,6 +50,11 @@
             <span>{{ slotProps.data.giaNhap }} &#8363;</span>
           </template>
         </Column>
+        <Column field="giaBan" header="Giá bán">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.giaBan }} &#8363;</span>
+          </template>
+        </Column>
         <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
           <template #header>
             <span class="m-auto"><b>Thao tác</b></span>
@@ -132,7 +137,8 @@ const listHangNhap = [
     hanSuDung: '2025-01-15',
     ngayNhap: '2023-02-01',
     soLuong: 100,
-    giaNhap: '50.000'
+    giaNhap: '50.000',
+    giaBan: '60.000'
   },
   {
     id: 2,
@@ -142,7 +148,8 @@ const listHangNhap = [
     hanSuDung: '2026-03-20',
     ngayNhap: '2023-04-05',
     soLuong: 200,
-    giaNhap: '75.000'
+    giaNhap: '75.000',
+    giaBan: '85.000'
   }
 ];
 </script>

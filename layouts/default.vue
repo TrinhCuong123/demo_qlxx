@@ -22,9 +22,6 @@
     <!-- Header -->
     <header class="header bg-white text-black p-4 fixed top-0 w-[calc(100%-250px)] ml-[250px] z-5">
       <nav style="flex: 1 1 auto;">
-        <!-- <div v-if="titleHeader=== '/hang-nhap'" class="ml-5 py-5">
-          <div class="font-bold text-3xl">Hàng nhập</div>
-        </div> -->
         <div class="flex justify-between items-center ">
           <div>
             <div v-if="titleHeader === ''" class="ml-5 py-5">
@@ -36,12 +33,63 @@
               <div class="text-sm">Phần mềm quản lý xưởng xe</div>
             </div>
           </div>
-          <div class="flex">
-            <Button icon="pi pi-pencil" outlined rounded severity="success" class="mr-2" title="Thông báo" />
+          <div class="flex gap-4 items-center pr-10">
+            <div class="flex mr-6">
+              <div class="mr-2">
+                <div
+                  class="flex items-center justify-center p-2 rounded-full  bg-white text-white hover:bg-yellow-400 focus:outline-none focus:ring-0"
+                  title="Thông báo" @click="visiblePhanHoi = true">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5Z"
+                      stroke="#04091E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M3 7L12 13L21 7" stroke="#04091E" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+              <div class="mr-3">
+                <div
+                  class="flex items-center justify-center p-2 rounded-full  bg-white text-white hover:bg-yellow-400 focus:outline-none focus:ring-0"
+                  title="Phản hồi" @click="visibleThongBao = true">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M10 5C10 4.46957 10.2107 3.96086 10.5858 3.58579C10.9609 3.21071 11.4696 3 12 3C12.5304 3 13.0391 3.21071 13.4142 3.58579C13.7893 3.96086 14 4.46957 14 5C15.1484 5.54303 16.1274 6.38833 16.8321 7.4453C17.5367 8.50227 17.9404 9.73107 18 11V14C18.0753 14.6217 18.2954 15.2171 18.6428 15.7381C18.9902 16.2592 19.4551 16.6914 20 17H4C4.54494 16.6914 5.00981 16.2592 5.35719 15.7381C5.70457 15.2171 5.92474 14.6217 6 14V11C6.05956 9.73107 6.4633 8.50227 7.16795 7.4453C7.8726 6.38833 8.85159 5.54303 10 5"
+                      stroke="#04091E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M9 17V18C9 18.7956 9.31607 19.5587 9.87868 20.1213C10.4413 20.6839 11.2044 21 12 21C12.7956 21 13.5587 20.6839 14.1213 20.1213C14.6839 19.5587 15 18.7956 15 18V17"
+                      stroke="#04091E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div>
+                <img src="~/assets/fonts/avatar.jpg" alt="Circular Image" class="rounded-full"
+                  style="width:  50px; height: 50px;">
+              </div>
+              <div class="ml-4">
+                <div class="font-bold text-xl">TrinhTien</div>
+                <div class="text-sm">Admin</div>
+              </div>
+            </div>
+
+
           </div>
         </div>
 
       </nav>
+
+      <Drawer v-model:visible="visibleThongBao" header="Thông báo" position="right">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat.</p>
+      </Drawer>
+      <Drawer v-model:visible="visiblePhanHoi" header="Phản hồi" position="right">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat.</p>
+      </Drawer>
     </header>
 
     <!-- Content Area -->
@@ -54,23 +102,14 @@
       <p>© 2024 Trịnh Ngọc Cường</p>
     </footer>
 
-    <ConfirmDialog
-      class="w-auto"
-      group="templateConfirmDialog"
-    >
+    <ConfirmDialog class="w-auto" group="templateConfirmDialog">
       <template #message="slotProps">
         <!-- <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
           <i :class="slotProps.message.icon" class="!text-6xl text-neutral-500 pt-2" />
           <p>{{ slotProps.message.message }}</p>
         </div> -->
-        <div
-          class="flex flex-row items-center w-full gap-2 border-b border-surface-200 dark:border-surface-700"
-        >
-          <i
-            :class="slotProps.message.icon"
-            class="mr-3"
-            style="font-size: 2rem"
-          />
+        <div class="flex flex-row items-center w-full gap-2 border-b border-surface-200 dark:border-surface-700">
+          <i :class="slotProps.message.icon" class="mr-3" style="font-size: 2rem" />
           <span>{{ slotProps.message.message }}</span>
         </div>
       </template>
@@ -84,6 +123,8 @@ import { ref } from "vue";
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const visibleThongBao = ref(false);
+const visiblePhanHoi = ref(false);
 const items = ref([
   {
     separator: true
@@ -211,7 +252,7 @@ const items = ref([
   align-items: center;
   justify-content: center;
   z-index: 1;
-  
+
 }
 
 /* Content */

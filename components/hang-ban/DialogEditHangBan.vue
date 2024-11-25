@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div class="gap-4 grid grid-cols-1 sm:grid-cols-2 mt-5">
+    <div class="gap-4 grid grid-cols-1 sm:grid-cols-3 mt-5">
       <div class="min-w-40">
         <label for="soLuong" class="block font-bold mb-3 required">Số lượng</label>
         <InputNumber id="soLuong" v-model="soLuong" :invalid="errors.soLuong != null" class="h-[42.72px]" size="large"
@@ -56,6 +56,20 @@
             locale="vi-VN"
             :invalid="errors.giaNhap != null"/>
         <span class="text-red-500">{{ errors.giaNhap }}</span>
+      </div>
+      <div class="min-w-40">
+        <label for="giaBan" class="block font-bold mb-3 required">Giá bán</label>
+        <InputNumber
+            v-model="giaBan"
+            fluid
+            :min-fraction-digits="2"
+            input-id="giaBan"
+            placeholder="Nhập giá nhập"
+            mode="currency"
+            currency="VND"
+            locale="vi-VN"
+            :invalid="errors.giaBan != null"/>
+        <span class="text-red-500">{{ errors.giaBan }}</span>
       </div>
     </div>
     <!-- end form -->
@@ -112,6 +126,10 @@ const schema = yup.object({
     .number()
     .required('Vui lòng nhập giá nhập!')
     .min(0, 'Không được nhập số âm'),
+  giaBan: yup
+    .number()
+    .required('Vui lòng nhập giá nhập!')
+    .min(0, 'Không được nhập số âm'),
 });
 
 const { defineField, handleSubmit, errors, resetForm } = useForm({
@@ -126,6 +144,7 @@ const [hanSuDung] = defineField('hanSuDung');
 const [ngayNhap] = defineField('ngayNhap');
 const [soLuong] = defineField('soLuong');
 const [giaNhap] = defineField('giaNhap');
+const [giaBan] = defineField('giaBan');
 
 
 const onSubmit = handleSubmit(() => {
