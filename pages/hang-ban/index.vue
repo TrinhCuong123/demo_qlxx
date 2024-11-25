@@ -122,7 +122,7 @@ const clearFilter = () => {
   keyWords.value = ''
   hangNhap.value = null
 }
-const getRowSTT = (index) => {
+const getRowSTT = (index: number) => {
   return index + 1;
 }
 

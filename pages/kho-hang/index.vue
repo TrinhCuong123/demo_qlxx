@@ -31,7 +31,7 @@
 
     <div class="m-4" style="padding-bottom: 16px;">
       <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines>
-        <Column class="text-center" body-style="text-align: center">
+        <Column class="text-center" body-style="text-align: center; width: 10px">
           <template #header>
             <span class="m-auto"><b>STT</b></span>
           </template>
@@ -39,17 +39,15 @@
             {{ getRowSTT(slotPros.index) }}
           </template>
         </Column>
-        <Column field="maPhuTung" header="Mã phụ tùng"></Column>
-        <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
-        <Column field="ngaySanXuat" header="Ngày sản xuất"></Column>
-        <Column field="hanSuDung" header="Hạn sử dụng"></Column>
-        <Column field="ngayNhap" header="Ngày nhập hàng"></Column>
-        <Column field="soLuong" header="Số lượng"></Column>
-        <Column field="giaNhap" header="Giá nhập">
-          <template #body="slotProps">
-            <span>{{ slotProps.data.giaNhap }} &#8363;</span>
+        <Column field="maPhuTung" header="Mã phụ tùng">
+          <template #body="{ data }">
+            <NuxtLink v-if="mode === 'default'" class="font-bold text-xl text-cyan-800" :to="`/kho-hang/${data.id}/hang-nhap`">{{ data.maPhuTung
+              }}</NuxtLink>
+            <NuxtLink v-if="mode === 'bon-phan'" :to="`/vuon-trong/${data.id}/bon-phan`">{{ data.maPhuTung }}
+            </NuxtLink>
           </template>
         </Column>
+        <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
         <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
           <template #header>
             <span class="m-auto"><b>Thao tác</b></span>
@@ -66,8 +64,8 @@
       </DataTable>
     </div>
   </div>
-  <HangNhapDialogCreateHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
-  <HangNhapDialogEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
+  <KhoHangDialogCreateKhoHang :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
+  <KhoHangDialogEditKhoHang :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
 <script setup>
 import { setTitleHeader } from '~/composables/globalTitleHeader';
@@ -75,8 +73,9 @@ import { ref } from 'vue';
 import 'primeicons/primeicons.css'
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
-setTitleHeader("Kho hàng");
+import { useRouter } from 'vue-router';
 
+setTitleHeader("Kho hàng");
 
 const confirm = useConfirm();
 const toast = useToast();
@@ -84,7 +83,11 @@ const keyWords = ref();
 const hangNhap = ref();
 const isOpenModal = ref();
 const isOpenEditModel = ref();
-
+const route = useRouter();
+let mode = "default"; // Giá trị mặc định
+if (route?.query?.["mode"]) {
+    mode = route.query["mode"].toString();
+}
 
 const onOpenEditModal = () => {
   isOpenEditModel.value = true;
@@ -95,25 +98,19 @@ const onOpenModal = () => {
 
 
 const confirmDeleteProject = () => {
-  confirm.require({
-    message: 'Are you sure you want to proceed?',
-    header: 'Confirmation',
-    icon: 'pi pi-exclamation-triangle',
-    rejectProps: {
-      label: 'Cancel',
-      severity: 'secondary',
-      outlined: true
+  ConfirmDialog.showConfirmDialog(
+    confirm,
+    `${'Bạn có chắc muốn cập nhật thông tin báo cáo này?'
+    }`,
+    'Xác nhận',
+    'pi pi-question-circle',
+    () => {
+      console.log(1);
     },
-    acceptProps: {
-      label: 'Save'
-    },
-    accept: () => {
-      toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-    },
-    reject: () => {
-      toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-    }
-  });
+    () => { },
+    '',
+    ' p-button-danger',
+  );
 };
 
 const timKiem = () => {

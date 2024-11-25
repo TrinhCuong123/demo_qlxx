@@ -136,7 +136,6 @@ const { defineField, handleSubmit, errors, resetForm } = useForm({
 const [maPhuTung] = defineField('maPhuTung');
 const [tenPhuTung] = defineField('tenPhuTung');
 const [ngayBan] = defineField('ngayBan');
-const [hanSuDung] = defineField('hanSuDung');
 const [ngayNhap] = defineField('ngayNhap');
 const [soLuong] = defineField('soLuong');
 const [giaNhap] = defineField('giaNhap');

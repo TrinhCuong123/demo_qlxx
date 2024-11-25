@@ -187,7 +187,7 @@
           <div class="text-sm opacity-80">Lợi nhuận cả năm</div>
           <div class="text-xl font-bold">200.000.000 &#8363;</div>
         </div>
-        <div class="flex justify-center mt-10">
+        <div class="flex justify-center mt-3">
           <Chart type="line" :data="chartDataLines" :options="chartOptionsLines" class="w-full h-[20rem]" />
         </div>
       </div>
@@ -233,7 +233,7 @@ onMounted(() => {
   chartDataPie.value = setChartDataPie();
   chartOptionPie.value = setChartOptionPies();
   chartDataLines.value = setChartDataLines();
-  chartOptionsLines.value = setChartDataLines();
+  chartOptionsLines.value = setChartOptionLines();
 });
 
 const chartData = ref();
@@ -355,30 +355,22 @@ const setChartDataLines = () => {
   const documentStyle = getComputedStyle(document.documentElement);
 
   return {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
     datasets: [
       {
-        label: 'First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        label: 'Lợi nhuận',
+        data: [65, 59, 80, 81, 56, 55, 40, 100, 200, 2500, 3000],
         fill: false,
         tension: 0.4,
         borderColor: documentStyle.getPropertyValue('--p-cyan-500')
       },
       {
-        label: 'Second Dataset',
-        data: [28, 48, 40, 19, 86, 27, 90],
+        label: 'Dư nợ',
+        data: [28, 48, 40, 19, 86, 27, 90, 2000, 1000, 500, 1260],
         fill: false,
         borderDash: [5, 5],
         tension: 0.4,
         borderColor: documentStyle.getPropertyValue('--p-orange-500')
-      },
-      {
-        label: 'Third Dataset',
-        data: [12, 51, 62, 33, 21, 62, 45],
-        fill: true,
-        borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-        tension: 0.4,
-        backgroundColor: 'rgba(107, 114, 128, 0.2)'
       }
     ]
   };
