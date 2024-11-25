@@ -10,9 +10,14 @@ export default defineNuxtConfig({
   ],
   primevue: {
       options: {
-          theme: {
-              preset: Aura
+        theme: {
+          preset: Aura,
+          options: {
+              prefix: 'p',
+              darkModeSelector: null, // Vô hiệu hóa dark mode
+              cssLayer: false
           }
+      }
       }
   },
   nitro: {
