@@ -57,7 +57,7 @@
           <template #body="slotProps">
             <div class="text-center">
               <Button icon="pi pi-pencil" outlined rounded severity="success" class="mr-2" title="chỉnh sửa"
-                @click="onOpenEditModal()" />
+                @click="onOpenEditModal(slotProps.data)" />
               <Button icon="pi pi-trash" outlined rounded severity="danger" title="Xóa"
                 @click="confirmDeleteProject()" />
             </div>
@@ -69,8 +69,7 @@
   <HangNhapDialogCreateHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
   <HangNhapDialogEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
-
-<script setup lang="ts">
+<script setup>
 // import { titleHeader, setTitleHeader } from '~/composables/globalTitleHeader';
 import { ref } from 'vue';
 import 'primeicons/primeicons.css'
@@ -94,19 +93,25 @@ const onOpenModal = () => {
 
 
 const confirmDeleteProject = () => {
-  ConfirmDialog.showConfirmDialog(
-    confirm,
-    `${'Bạn có chắc muốn cập nhật thông tin báo cáo này?'
-    }`,
-    'Xác nhận',
-    'pi pi-question-circle',
-    () => {
-      console.log(1);
+  confirm.require({
+    message: 'Are you sure you want to proceed?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    rejectProps: {
+      label: 'Cancel',
+      severity: 'secondary',
+      outlined: true
     },
-    () => { },
-    '',
-    ' p-button-danger',
-  );
+    acceptProps: {
+      label: 'Save'
+    },
+    accept: () => {
+      toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+    },
+    reject: () => {
+      toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+    }
+  });
 };
 
 const timKiem = () => {
@@ -116,7 +121,7 @@ const clearFilter = () => {
   keyWords.value = ''
   hangNhap.value = null
 }
-const getRowSTT = (index: number) => {
+const getRowSTT = (index) => {
   return index + 1;
 }
 

@@ -168,15 +168,20 @@ const items = ref([
   height: 80px;
   display: flex;
   align-items: center;
+  position: absolute;
+  z-index: 99999;
 }
 
 /* Footer */
 .footer {
+  position: relative;
   height: 60px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 99999;
+
 }
 
 /* Content */

@@ -1,5 +1,5 @@
 <template>
-  <Dialog v-model:visible="internalVisible" :style="{ width: '800px' }" :header="'Sửa hàng nhập'" :modal="true"
+  <Dialog v-model:visible="internalVisible" :style="{ width: '800px' }" :header="'Thêm hàng nhập'" :modal="true"
     :close-on-escape="true">
     <div class="gap-4 grid grid-cols-1 sm:grid-cols-2">
       <div class="min-w-40">
@@ -58,6 +58,8 @@
         <span class="text-red-500">{{ errors.giaNhap }}</span>
       </div>
     </div>
+
+
     <!-- end form -->
     <template #footer>
       <Button label="Hủy" icon="pi pi-times" severity="danger" @click="handleHideModal" />
@@ -90,6 +92,7 @@ const internalVisible = computed({
 const handleHideModal = () => {
   emit('hideModal');
   resetForm();
+
 };
 const schema = yup.object({
   maPhuTung: yup
