@@ -7,7 +7,7 @@
       </NuxtLink>
       <div class=" w-full p-5">
         <div class="flex justify-center">
-          <Menu :model="items" class="w-full md:w-60">
+          <Menu :model="items" class="w-full md:w-60" style="border: 0;">
             <template #item="{ item, props }">
               <a v-ripple class="flex items-center" v-bind="props.action">
                 <span v-html="item.svgIcon" class="inline-block w-6 h-6 mt-2"></span>
@@ -21,18 +21,25 @@
 
     <!-- Header -->
     <header class="header bg-white text-black p-4 fixed top-0 w-[calc(100%-250px)] ml-[250px] z-5">
-      <nav>
+      <nav style="flex: 1 1 auto;">
         <!-- <div v-if="titleHeader=== '/hang-nhap'" class="ml-5 py-5">
           <div class="font-bold text-3xl">Hàng nhập</div>
         </div> -->
-          <div class="font-bold text-2xl">Hi,Trịnh Ngọc Tiến</div>
-          <div class="text-sm">Chào mừng đến với phần mềm quản lý xưởng xe</div>
-        <!-- <div v-if="titleHeader===''" class="ml-5 py-5">
+        <div class="flex justify-between items-center ">
+          <div>
+            <div v-if="titleHeader === ''" class="ml-5 py-5">
+              <div class="font-bold text-2xl">Hi,Trịnh Ngọc Tiến</div>
+              <div class="text-sm">Chào mừng đến với phần mềm quản lý xưởng xe</div>
+            </div>
+            <div v-else class="ml-5 py-5">
+              <div class="font-bold text-2xl">{{ titleHeader }}</div>
+              <div class="text-sm">Phần mềm quản lý xưởng xe</div>
+            </div>
+          </div>
+          <div class="flex">
+            <Button icon="pi pi-pencil" outlined rounded severity="success" class="mr-2" title="Thông báo" />
+          </div>
         </div>
-        <div v-else class="ml-5 py-5">
-          <div class="font-bold text-2xl">{{ titleHeader }}</div>
-          <div class="text-sm">Phần mềm quản lý xưởng xe</div>
-        </div> -->
 
       </nav>
     </header>
@@ -46,6 +53,29 @@
     <footer class="footer bg-gray-200 text-center py-4 fixed bottom-0 w-[calc(100%-250px)] ml-[250px] z-5">
       <p>© 2024 Trịnh Ngọc Cường</p>
     </footer>
+
+    <ConfirmDialog
+      class="w-auto"
+      group="templateConfirmDialog"
+    >
+      <template #message="slotProps">
+        <!-- <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+          <i :class="slotProps.message.icon" class="!text-6xl text-neutral-500 pt-2" />
+          <p>{{ slotProps.message.message }}</p>
+        </div> -->
+        <div
+          class="flex flex-row items-center w-full gap-2 border-b border-surface-200 dark:border-surface-700"
+        >
+          <i
+            :class="slotProps.message.icon"
+            class="mr-3"
+            style="font-size: 2rem"
+          />
+          <span>{{ slotProps.message.message }}</span>
+        </div>
+      </template>
+    </ConfirmDialog>
+
   </div>
 </template>
 
@@ -169,19 +199,19 @@ const items = ref([
   display: flex;
   align-items: center;
   position: absolute;
-  z-index: 99999;
+  z-index: 1;
 }
 
 /* Footer */
 .footer {
-  position: relative;
-  height: 60px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
+  height: 60px;
+  position: relative;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   align-items: center;
   justify-content: center;
-  z-index: 99999;
-
+  z-index: 1;
+  
 }
 
 /* Content */
@@ -193,9 +223,14 @@ const items = ref([
   overflow: hidden;
 } */
 .content-container {
-  width: calc(100vw - 250px); /* Tính toán phù hợp với margin-left */
-  overflow: hidden; /* Loại bỏ cuộn */
+  width: calc(100vw - 250px);
+  /* Tính toán phù hợp với margin-left */
+  overflow: hidden;
+  /* Loại bỏ cuộn */
   border-radius: 10px;
 }
 
+.p-menu {
+  border: 0;
+}
 </style>

@@ -134,7 +134,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="grid grid-cols-2 justify-items-center gap-4 m-5">
         <div class="col-span-1 bg-white rounded-lg w-full">
           <div style=" align-items: center;" class="m-4 pl-3">
@@ -160,24 +160,60 @@
         </div>
       </div>
     </div>
-    <div class="col-span-1 m-5">
-      <ClientOnly>
-        <LMap ref="map" :options="{ attributionControl: false }" :zoom="5" :center="[17.175763, 106.699218]"
-          :use-global-leaflet="false">
-          <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png" layer-type="base" name="OpenStreetMap" />
-        </LMap>
-      </ClientOnly>
+    <div class="bg-white col-span-1 rounded-xl mt-5 mb-5 mr-5">
+      <div class="m-3">
+        <div class="flex items-center m-2">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="38" viewBox="0 0 24 24" fill="none">
+              <path fill="#9FA324" d="M1 11v10h5v-6h4v6h5V11L8 6z" />
+              <path fill="#9FA324" d="M10 3v1.97l7 5V11h2v2h-2v2h2v2h-2v4h6V3zm9 6h-2V7h2z" />
+            </svg>
+          </div>
+          <div class="font-bold text-xl ml-3">
+            Địa chỉ khách hàng
+          </div>
+        </div>
+
+        <div class="w-100 h-screen">
+          <ClientOnly>
+            <LMap ref="map" :options="{ attributionControl: false }" :zoom="5" :center="[17.175763, 106.699218]"
+              :use-global-leaflet="false">
+              <!-- <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png" layer-type="base" name="OpenStreetMap" /> -->
+
+              <LMap ref="map" :options="{ attributionControl: false }" :zoom="5" :center="[17.175763, 106.699218]"
+                :use-global-leaflet="false">
+                <!-- Lớp bản đồ 1: Google Satellite -->
+                <LTileLayer url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" attribution="&copy; Google Maps"
+                  layer-type="base" name="Bản đồ Vệ tinh Google" />
+
+                <!-- Lớp bản đồ 2: Google Terrain -->
+                <LTileLayer url="https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}" attribution="&copy; Google Maps"
+                  layer-type="base" name="Bản đồ Địa hình Google" />
+
+                <!-- Lớp bản đồ 3: OpenTopoMap -->
+                <LTileLayer url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+                  attribution="Map data: &copy; <a href=&quot;https://www.opentopomap.org/&quot;>OpenTopoMap</a>"
+                  layer-type="base" name="Bản đồ Địa hình Mở" />
+
+                <!-- <LTileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
+                  layer-type="base" name="Bản đồ Đường phố Mở" /> -->
+                <!-- Lớp điều khiển Layers Control -->
+                <LControlLayers position="topright" />
+              </LMap>
+            </LMap>
+          </ClientOnly>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import { titleHeader, setTitleHeader } from '~/composables/globalTitleHeader';
+import { setTitleHeader } from '~/composables/globalTitleHeader';
 import { ref, onMounted } from "vue";
 
-// onMounted(() => {
-//   setTitleHeader("Trang chủ");
-// })
+setTitleHeader("");
 
 onMounted(() => {
   chartData.value = setChartData();

@@ -71,11 +71,13 @@
 </template>
 
 <script setup lang="ts">
-// import { titleHeader, setTitleHeader } from '~/composables/globalTitleHeader';
+import { setTitleHeader } from '~/composables/globalTitleHeader';
 import { ref } from 'vue';
 import 'primeicons/primeicons.css'
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
+
+setTitleHeader("Hàng nhập");
 
 const confirm = useConfirm();
 const toast = useToast();

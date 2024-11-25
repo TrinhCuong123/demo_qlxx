@@ -70,12 +70,13 @@
   <HangNhapDialogEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
 <script setup>
-// import { titleHeader, setTitleHeader } from '~/composables/globalTitleHeader';
+import { setTitleHeader } from '~/composables/globalTitleHeader';
 import { ref } from 'vue';
 import 'primeicons/primeicons.css'
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
 
+setTitleHeader("Nhân viên");
 const confirm = useConfirm();
 const toast = useToast();
 const keyWords = ref();
