@@ -9,8 +9,6 @@
             </InputIcon>
             <InputText v-model="keyWords" placeholder="Tìm kiếm" class="w-full" />
           </IconField>
-          <Select v-model="hangNhap" :options="listHangNhap" option-label="tenPhuTung" option-value="id"
-            placeholder="Chọn loại hàng" class="w-48" show-clear />
         </div>
       </template>
 
@@ -30,7 +28,7 @@
     </div>
 
     <div class="m-4" style="padding-bottom: 16px;">
-      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines>
+      <DataTable :value="customerList" tableStyle="min-width: 50rem" showGridlines>
         <Column class="text-center" body-style="text-align: center">
           <template #header>
             <span class="m-auto"><b>STT</b></span>
@@ -39,11 +37,11 @@
             {{ getRowSTT(slotPros.index) }}
           </template>
         </Column>
-        <Column field="maPhuTung" header="Mã phụ tùng"></Column>
-        <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
-        <Column field="ngaySanXuat" header="Ngày sản xuất"></Column>
-        <Column field="hanSuDung" header="Hạn sử dụng"></Column>
-        <Column field="ngayNhap" header="Ngày nhập hàng"></Column>
+        <Column field="tenKhachHang" header="Mã phụ tùng"></Column>
+        <Column field="dia_chi" header="Tên phụ tùng"></Column>
+        <Column field="dien_thoai" header="Ngày sản xuất"></Column>
+        <Column field="thuongHieu" header="Hạn sử dụng"></Column>
+        <Column field="bienSoXe" header="Ngày nhập hàng"></Column>
         <Column field="soLuong" header="Số lượng"></Column>
         <Column field="giaNhap" header="Giá nhập">
           <template #body="slotProps">
@@ -66,12 +64,12 @@
       </DataTable>
     </div>
   </div>
-  <HangNhapDialogCreateHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
-  <HangNhapDialogEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
+  <KhachHangDialogCreateKhachHang :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
+  <KhachHangDialogEditKhachHang :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
 <script setup>
 import { setTitleHeader } from '~/composables/globalTitleHeader';
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import 'primeicons/primeicons.css'
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
@@ -127,27 +125,101 @@ const getRowSTT = (index) => {
   return index + 1;
 }
 
-
-const listHangNhap = [
+const customerList = reactive([
   {
-    id: 1,
-    maPhuTung: 'PT001',
-    tenPhuTung: 'Bộ lọc dầu',
-    ngaySanXuat: '2023-01-15',
-    hanSuDung: '2025-01-15',
-    ngayNhap: '2023-02-01',
-    soLuong: 100,
-    giaNhap: '50.000'
+    tenKhachHang: 'Nguyễn Văn A',
+    dia_chi: 'Hà Nội, Việt Nam',
+    dien_thoai: '0123456789',
+    thuongHieu: 'Honda',
+    bienSoXe: '29A-12345',
+    soKm: 15000,
+    soVin: '1HGCM82633A123456',
+    ngaySua: '2023-10-10',
+    kinhDo: 105.8542,
+    viDo: 21.0285,
+    maPhuTung: 'PT-001',
+    tenPhuTung: 'Lọc gió',
+    soLuong: 2,
+    giaBan: 200000,
+    tienCong: 50000,
+    chiPhiPhatSinh: 10000,
+    daThanhToan: false
   },
   {
-    id: 2,
-    maPhuTung: 'PT002',
-    tenPhuTung: 'Dây curoa',
-    ngaySanXuat: '2023-03-20',
-    hanSuDung: '2026-03-20',
-    ngayNhap: '2023-04-05',
-    soLuong: 200,
-    giaNhap: '75.000'
+    tenKhachHang: 'Trần Thị B',
+    dia_chi: 'TP. HCM, Việt Nam',
+    dien_thoai: '0987654321',
+    thuongHieu: 'Yamaha',
+    bienSoXe: '59A-67890',
+    soKm: 23000,
+    soVin: '2HGCM82633A654321',
+    ngaySua: '2023-11-01',
+    kinhDo: 106.6891,
+    viDo: 10.8231,
+    maPhuTung: 'PT-002',
+    tenPhuTung: 'Bugi',
+    soLuong: 4,
+    giaBan: 80000,
+    tienCong: 70000,
+    chiPhiPhatSinh: 15000,
+    daThanhToan: true
+  },
+  {
+    tenKhachHang: 'Lê Minh C',
+    dia_chi: 'Đà Nẵng, Việt Nam',
+    dien_thoai: '0931122334',
+    thuongHieu: 'Kawasaki',
+    bienSoXe: '43A-54321',
+    soKm: 5000,
+    soVin: '3HGCM82633A987654',
+    ngaySua: '2023-11-10',
+    kinhDo: 108.2215,
+    viDo: 16.0493,
+    maPhuTung: 'PT-003',
+    tenPhuTung: 'Lốp xe',
+    soLuong: 1,
+    giaBan: 400000,
+    tienCong: 100000,
+    chiPhiPhatSinh: 20000,
+    daThanhToan: false
+  },
+  {
+    tenKhachHang: 'Phạm Thị D',
+    dia_chi: 'Cần Thơ, Việt Nam',
+    dien_thoai: '0912345678',
+    thuongHieu: 'Suzuki',
+    bienSoXe: '65A-98765',
+    soKm: 12000,
+    soVin: '4HGCM82633A112233',
+    ngaySua: '2023-10-20',
+    kinhDo: 105.7462,
+    viDo: 10.0234,
+    maPhuTung: 'PT-004',
+    tenPhuTung: 'Phanh xe',
+    soLuong: 3,
+    giaBan: 300000,
+    tienCong: 60000,
+    chiPhiPhatSinh: 5000,
+    daThanhToan: true
+  },
+  {
+    tenKhachHang: 'Vũ Minh E',
+    dia_chi: 'Hải Phòng, Việt Nam',
+    dien_thoai: '0978543210',
+    thuongHieu: 'BMW',
+    bienSoXe: '15A-12321',
+    soKm: 8000,
+    soVin: '5HGCM82633A112233',
+    ngaySua: '2023-09-15',
+    kinhDo: 106.6952,
+    viDo: 20.8446,
+    maPhuTung: 'PT-005',
+    tenPhuTung: 'Đèn pha',
+    soLuong: 1,
+    giaBan: 500000,
+    tienCong: 120000,
+    chiPhiPhatSinh: 25000,
+    daThanhToan: true
   }
-];
+]);
 </script>

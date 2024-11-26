@@ -2,19 +2,14 @@
   <div class="bg-white m-5 rounded-lg">
     <Toolbar class="mb-5">
       <template #start>
-        <div class="flex flex-column justify-center gap-4">
+        <div class="gap-4">
           <IconField>
             <InputIcon>
               <i class="pi pi-search" />
             </InputIcon>
             <InputText v-model="keyWords" placeholder="Tìm kiếm" class="w-full" />
           </IconField>
-          <Select v-model="hangNhap" :options="listHangNhap" option-label="tenPhuTung" option-value="id"
-            placeholder="Chọn loại hàng" class="w-48" show-clear />
         </div>
-      </template>
-
-      <template #end>
         <div class="mx-4">
           <Button type="button" icon="pi pi-filter" label="Tìm kiếm" class="w-full" @click="timKiem" />
         </div>
@@ -122,12 +117,12 @@ const getRowSTT = (index: number) => {
 const listHangNhap = [
   {
     id: 1,
-    tenLanNhap: 'PT001',
+    tenLanNhap: 'Nhập hàng tháng 11',
     ngayNhapHang: '2023-02-01',
   },
   {
     id: 2,
-    tenLanNhap: 'PT002',
+    tenLanNhap: 'Nhập háng tháng 12',
     ngayNhapHang: '2023-04-05',
   }
 ];

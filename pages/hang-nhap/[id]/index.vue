@@ -100,7 +100,7 @@
     </div>
   </div>
   <HangNhapDialogCreateDetailHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
-  <HangNhapDialogDetailEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
+  <HangNhapDialogEditDetailHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
 
 <script setup lang="ts">

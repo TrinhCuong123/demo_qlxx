@@ -44,12 +44,12 @@
           </template>
         </Column>
         <Column field="maPhuTung" header="Mã phụ tùng">
-          <template #body="{ data }">
+          <!-- <template #body="{ data }">
             <NuxtLink v-if="mode === 'default'" class="font-bold text-xl text-cyan-800" :to="`/kho-hang/${data.id}/hang-nhap`">{{ data.maPhuTung
               }}</NuxtLink>
             <NuxtLink v-if="mode === 'bon-phan'" :to="`/vuon-trong/${data.id}/bon-phan`">{{ data.maPhuTung }}
             </NuxtLink>
-          </template>
+          </template> -->
         </Column>
         <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
         <Column field="ngayCapNhat" header="Ngày cập nhật"></Column>
@@ -92,11 +92,6 @@ const keyWords = ref();
 const hangNhap = ref();
 const isOpenModal = ref();
 const isOpenEditModel = ref();
-const route = useRouter();
-let mode = "default"; // Giá trị mặc định
-if (route?.query?.["mode"]) {
-    mode = route.query["mode"].toString();
-}
 
 const onOpenEditModal = () => {
   isOpenEditModel.value = true;

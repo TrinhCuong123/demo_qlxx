@@ -1,0 +1,266 @@
+<template>
+  <Dialog v-model:visible="internalVisible" :style="{ width: '800px' }" :header="'Thêm khách hàng'" :modal="true"
+    :close-on-escape="closeEscapeKeyModalInfo">
+    <div>
+      <Tabs value="0">
+        <TabList>
+          <Tab value="0" style="color:#0b5ee7"> Thông tin Khách hàng </Tab>
+          <Tab value="1" style="color:#0b5ee7"> Phụ tùng thay thế </Tab>
+        </TabList>
+        <div class="grid grid-cols-1">
+          <TabPanel value="0">
+            <div class="col-span-1 px-3 pt-3">
+              <div class="grid grid-cols-1 gap-4 mb-4">
+                <img src="../../assets/fonts/imageCustumer1.svg" class="max-w-full h-28 ml-3">
+              </div>
+              <div class="grid grid-cols-1 gap-4 mb-4">
+                <h6 class="uppercase text[#0b5ee7] font-bold m-0" style="color: #0b5ee7">
+                  Thông tin khách hàng
+                </h6>
+              </div>
+              <div class="grid grid-cols-1 gap-4 mb-4">
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3 required">Tên khách hàng</label>
+                  <InputText v-model="tenKhachHang" name="tenKhachHang" placeholder="Nhập tên khách hàng"
+                    :invalid="errors.tenKhachHang ? true : false" class="w-full" />
+                  <span class="text-red-500">{{ errors.tenKhachHang }}</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 gap-4 mb-4">
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3 required">Địa chỉ</label>
+                  <InputText v-model="dia_chi" name="dia_chi" placeholder="Nhập địa chỉ"
+                    :invalid="errors.dia_chi ? true : false" class="w-full" />
+                  <span class="text-red-500">{{ errors.dia_chi }}</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3 required">Điện thoại</label>
+                  <InputText v-model="dien_thoai" name="dien_thoai" placeholder="Nhập điện thoại"
+                    :invalid="errors.dien_thoai ? true : false" class="w-full" />
+                  <span class="text-red-500">{{ errors.dien_thoai }}</span>
+                </div>
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3">Thương hiệu</label>
+                  <InputText v-model="thuongHieu" name="thuongHieu" placeholder="Nhập thương hiệu"
+                    :invalid="errors.thuongHieu ? true : false" class="w-full" />
+                  <span class="text-red-500">{{ errors.thuongHieu }}</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3 required">Biển số xe</label>
+                  <InputText v-model="bienSoXe" name="bienSoXe" placeholder="Nhập biển số xe"
+                    :invalid="errors.bienSoXe ? true : false" class="w-full" />
+                  <span class="text-red-500">{{ errors.bienSoXe }}</span>
+                </div>
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3 required">Số km</label>
+                  <InputNumber v-model="soKm" name="soKm" placeholder="Nhập số km" :invalid="errors.soKm ? true : false"
+                    class="w-full" />
+                  <span class="text-red-500">{{ errors.soKm }}</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3">Số vin</label>
+                  <InputText v-model="soVin" name="soVin" placeholder="Nhập vin" :invalid="errors.soVin ? true : false"
+                    class="w-full" />
+                  <span class="text-red-500">{{ errors.soVin }}</span>
+                </div>
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3 required">Ngày sửa</label>
+                  <DatePicker v-model="ngaySua" :invalid="errors.ngaySua != null" input-class="h-[42.72px]"
+                    date-format="dd/mm/yy" show-icon fluid placeholder="dd/mm/yyyy" input-id="ngaySua" />
+                  <span class="text-red-500">{{ errors.ngaySua }}</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3 required">Kinh độ</label>
+                  <InputNumber v-model="kinhDo" class="w-full" name="kinhDo" placeholder="Nhập kinh độ" mode="decimal"
+                    :min-fraction-digits="6" />
+                </div>
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3 required">Vĩ độ</label>
+                  <InputNumber v-model="viDo" class="w-full" name="viDo" mode="decimal" :min-fraction-digits="6"
+                    placeholder="Nhập vĩ độ" />
+                </div>
+                <div class="col-span-1">
+                  <label for="icon" class="font-bold block mb-3">Chọn trên bản đồ</label>
+                  <Button icon="pi pi-send" class="mt-auto w-full" label="Chọn ví trí trên bản đồ" @click="onOpenMap" />
+                  <Dialog v-model:visible="visible_map" modal header="Chọn vị trí"
+                    :close-on-escape="closeEscapeKeyModalMap">
+                    <div class="w-80 h-[500px] sm:w-[900px] sm:h-[600px] m-2">
+                      <ClientOnly>
+                        <LMap ref="map" :options="{ attributionControl: false }" :zoom="5"
+                          :center="[viDo ?? 17.175763720046184, kinhDo ?? 106.69921875000001]"
+                          :use-global-leaflet="false">
+                          <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png" layer-type="base"
+                            name="OpenStreetMap" />
+                          <!-- <LMarker v-if="lat != null && lon" :lat-lng="[lat, lon]" draggable /> -->
+                        </LMap>
+                      </ClientOnly>
+                    </div>
+                  </Dialog>
+                </div>
+              </div>
+            </div>
+          </TabPanel>
+          <TabPanel value="1">
+            <div class="col-span-1 px-3 pt-3">
+              <div class="grid grid-cols-1 mb-4">
+                <img src="../../assets/fonts/imageGear.svg" class="max-w-full h-28 ml-3">
+              </div>
+              <div class="grid grid-cols-1 gap-4 mb-4">
+                <h6 class="uppercase text[#0b5ee7] font-bold m-0" style="color: #0b5ee7">
+                  Phụ tùng thay thế
+                </h6>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3">Mã phụ tùng</label>
+                  <InputText v-model="maPhuTung" name="maPhuTung" placeholder="Mã phụ tùng"
+                    :invalid="errors.maPhuTung ? true : false" class="w-full" />
+                  <span class="text-red-500">{{ errors.maPhuTung }}</span>
+                </div>
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3">Tên phụ tùng</label>
+                  <InputText v-model="tenPhuTung" name="tenPhuTung" placeholder="Tên phụ tùng"
+                    :invalid="errors.tenPhuTung ? true : false" class="w-full" />
+                  <span class="text-red-500">{{ errors.tenPhuTung }}</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3">Số lượng</label>
+                  <InputNumber v-model="soLuong" name="soLuong" placeholder="Nhập số lượng"
+                    :invalid="errors.soLuong ? true : false" class="w-full" />
+                  <span class="text-red-500">{{ errors.soLuong }}</span>
+                </div>
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3">Giá bán</label>
+                  <InputNumber v-model="giaBan" class="w-full" fluid input-id="giaBan" placeholder="Nhập giá bán"
+                    mode="currency" currency="VND" locale="vi-VN" :invalid="errors.giaBan != null" />
+                  <span class="text-red-500">{{ errors.giaBan }}</span>
+                </div>
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3">Tiền công</label>
+                  <InputNumber v-model="tienCong" class="w-full" fluid input-id="tienCong" placeholder="Nhập tiền công"
+                    mode="currency" currency="VND" locale="vi-VN" :invalid="errors.tienCong != null" />
+                  <span class="text-red-500">{{ errors.tienCong }}</span>
+                </div>
+                <div class="col-span-1">
+                  <label class="block font-bold mb-3">Chi phí phát sinh</label>
+                  <InputNumber v-model="chiPhiPhatSinh" class="w-full" fluid input-id="chiPhiPhatSinh"
+                    placeholder="Nhập chi phí phát sinh" mode="currency" currency="VND" locale="vi-VN"
+                    :invalid="errors.chiPhiPhatSinh != null" />
+                  <span class="text-red-500">{{ errors.chiPhiPhatSinh }}</span>
+                </div>
+                <div class="col-span-1">
+                  <div class="flex items-center">
+                    <label class="block font-bold mr-3">Đã thanh toán</label>
+                    <Checkbox v-model="daThanhToan" inputId="daThanhToan" name="daThanhToan" value="daThanhToan"
+                      :invalid="errors.daThanhToan != null" />
+                    <span class="text-red-500">{{ errors.daThanhToan }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabPanel>
+        </div>
+      </Tabs>
+    </div>
+    <template #footer>
+      <Button label="Hủy" icon="pi pi-times" class="p-button-danger" @click="close" />
+      <Button label="Lưu" icon="pi pi-check" class="p-button-primary" @click="onSubmit" />
+    </template>
+  </Dialog>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+import * as yup from 'yup';
+import { useForm } from 'vee-validate';
+import { ref, watch } from 'vue'
+
+const emit = defineEmits(['hideModal']);
+
+const visible_map = ref(false);
+const props = defineProps({
+  isVisible: {
+    type: Boolean,
+  },
+});
+const internalVisible = computed({
+  get() {
+    return props.isVisible;
+  },
+  set() {
+    handleHideModal();
+  },
+});
+
+const handleHideModal = () => {
+  emit('hideModal');
+  resetForm();
+
+};
+const schema = yup.object({
+  // maPhuTung: yup
+  //   .string()
+  //   .required('Vui lòng nhập mã phụ tùng!')
+  //   .max(100, 'Tối đa 100 ký tự!'),
+  // tenPhuTung: yup.string().required('Vui lòng nhập tên phụ tùng!'),
+});
+
+const { defineField, handleSubmit, errors, resetForm } = useForm({
+  validationSchema: schema,
+});
+
+const close = () => {
+  internalVisible.value = false;
+}
+const onOpenMap = () => {
+  visible_map.value = true;
+  closeEscapeKeyModalInfo.value = false;
+  closeEscapeKeyModalMap.value = true;
+};
+watch(visible_map, () => {
+  if (!visible_map.value) {
+    closeEscapeKeyModalInfo.value = true;
+  }
+});
+const map = ref();
+// const onclick = () => {
+//   const mapRef = map.value;
+//   const latlng = mapRef.leafletObject.mouseEventToLatLng(event);
+//   lon.value = latlng.lng;
+//   lat.value = latlng.lat;
+// };
+const closeEscapeKeyModalInfo = ref(true);
+const closeEscapeKeyModalMap = ref(false);
+// const [id] = defineField('id');
+const [tenKhachHang] = defineField('tenKhachHang');
+const [dia_chi] = defineField('dia_chi');
+const [dien_thoai] = defineField('dien_thoai');
+const [thuongHieu] = defineField('thuongHieu');
+const [bienSoXe] = defineField('bienSoXe');
+const [soKm] = defineField('soKm');
+const [soVin] = defineField('soVin');
+const [ngaySua] = defineField('ngaySua');
+const [kinhDo] = defineField('kinhDo');
+const [viDo] = defineField('viDo');
+const [maPhuTung] = defineField('maPhuTung');
+const [tenPhuTung] = defineField('tenPhuTung');
+const [soLuong] = defineField('soLuong');
+const [giaBan] = defineField('giaBan');
+const [tienCong] = defineField('tienCong');
+const [chiPhiPhatSinh] = defineField('chiPhiPhatSinh');
+const [daThanhToan] = defineField('daThanhToan');
+
+const onSubmit = handleSubmit(() => {
+  console.log('onSubmit');
+});
+</script>
