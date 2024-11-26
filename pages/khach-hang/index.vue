@@ -42,8 +42,30 @@
         <Column field="dien_thoai" header="Ngày sản xuất"></Column>
         <Column field="thuongHieu" header="Hạn sử dụng"></Column>
         <Column field="bienSoXe" header="Ngày nhập hàng"></Column>
-        <Column field="soLuong" header="Số lượng"></Column>
-        <Column field="giaNhap" header="Giá nhập">
+        <Column
+          header="Trạng thái"
+          field="lockout"
+          :filter-menu-style="{ width: '14rem' }"
+          style="min-width: 12rem"
+        >
+          <template #body="{ data }">
+            <div>
+              <Badge
+                v-if="data.daThanhToan"
+                :value="statePay.Active"
+                severity="success"
+                class="text-lg font-medium"
+              />
+              <Badge
+                v-else
+                :value="statePay.Inactive"
+                severity="danger"
+                class="text-lg font-medium"
+              />
+            </div>
+          </template>
+        </Column>
+        <Column field="giaNhap" header="Tổng chi phí">
           <template #body="slotProps">
             <span>{{ slotProps.data.giaNhap }} &#8363;</span>
           </template>
@@ -67,7 +89,7 @@
   <KhachHangDialogCreateKhachHang :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
   <KhachHangDialogEditKhachHang :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
-<script setup>
+<script setup lang="ts">
 import { setTitleHeader } from '~/composables/globalTitleHeader';
 import { ref, reactive } from 'vue';
 import 'primeicons/primeicons.css'
@@ -89,6 +111,10 @@ const onOpenEditModal = () => {
 };
 const onOpenModal = () => {
   isOpenModal.value = true;
+};
+const statePay = {
+  Active: 'Đã thanh toán',
+  Inactive: 'Chưa thanh toán',
 };
 
 

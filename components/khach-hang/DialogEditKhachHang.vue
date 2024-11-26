@@ -1,5 +1,5 @@
 <template>
-  <Dialog v-model:visible="internalVisible" :style="{ width: '800px' }" :header="'Thêm khách hàng'" :modal="true"
+  <Dialog v-model:visible="internalVisible" :style="{ width: '1000px' }" :header="'Thêm khách hàng'" :modal="true"
     :close-on-escape="closeEscapeKeyModalInfo">
     <div>
       <Tabs value="0">
@@ -89,12 +89,12 @@
                 </div>
                 <div class="col-span-1">
                   <label for="icon" class="font-bold block mb-3">Chọn trên bản đồ</label>
-                  <Button icon="pi pi-send" class="mt-auto w-full" label="Chọn ví trí trên bản đồ" @click="onOpenMap" />
+                  <Button icon="pi pi-send" class="custom-button" label="Chọn ví trí trên bản đồ" @click="onOpenMap" />
                   <Dialog v-model:visible="visible_map" modal header="Chọn vị trí"
                     :close-on-escape="closeEscapeKeyModalMap">
                     <div class="w-80 h-[500px] sm:w-[900px] sm:h-[600px] m-2">
                       <ClientOnly>
-                        <LMap ref="map" :options="{ attributionControl: false }" :zoom="5"
+                        <LMap ref="map" :options="{ attributionControl: false }" :zoom="6"
                           :center="[viDo ?? 17.175763720046184, kinhDo ?? 106.69921875000001]"
                           :use-global-leaflet="false">
                           <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png" layer-type="base"
@@ -113,38 +113,38 @@
               <div class="grid grid-cols-1 mb-4">
                 <img src="../../assets/fonts/imageGear.svg" class="max-w-full h-28 ml-3">
               </div>
-              <div class="grid grid-cols-1 gap-4 mb-4">
+              <div class="flex justify-between items-center gap-4 mb-4">
                 <h6 class="uppercase text[#0b5ee7] font-bold m-0" style="color: #0b5ee7">
                   Phụ tùng thay thế
                 </h6>
+                <Button class="bg-blue-500 text-white font-bold py-2 px-4 rounded mb-4" @click="themPhuTung">
+                  Thêm phụ tùng
+                </Button>
               </div>
-              <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="col-span-1">
-                  <label class="block font-bold mb-3">Mã phụ tùng</label>
-                  <InputText v-model="maPhuTung" name="maPhuTung" placeholder="Mã phụ tùng"
-                    :invalid="errors.maPhuTung ? true : false" class="w-full" />
-                  <span class="text-red-500">{{ errors.maPhuTung }}</span>
+
+              <div v-for="(phuTung, index) in phuTungs" :key="index" class="grid grid-cols-4 gap-4 mb-1">
+                <div class="min-w-40">
+                  <label v-if="index === 0" for="maPhuTung" class="block font-bold mb-3">Mã phụ tùng</label>
+                  <InputText id="maPhuTung" v-model="phuTung.maPhuTung" placeholder="Chọn mã phụ tùng" size="large"
+                    class="mr-2 w-full h-[42.72px]" />
+                </div>
+                <div class="min-w-40">
+                  <label v-if="index === 0" for="tenPhuTung" class="block font-bold mb-3">Tên phụ tùng</label>
+                  <InputText id="tenPhuTung" v-model="phuTung.tenPhuTung" placeholder="Chọn tên phụ tùng" size="large"
+                    class="mr-2 w-full h-[42.72px]" />
                 </div>
                 <div class="col-span-1">
-                  <label class="block font-bold mb-3">Tên phụ tùng</label>
-                  <InputText v-model="tenPhuTung" name="tenPhuTung" placeholder="Tên phụ tùng"
-                    :invalid="errors.tenPhuTung ? true : false" class="w-full" />
-                  <span class="text-red-500">{{ errors.tenPhuTung }}</span>
+                  <label v-if="index === 0" class="block font-bold mb-3">Số lượng</label>
+                  <InputNumber v-model="phuTung.soLuong" placeholder="Nhập số lượng" class="w-full" />
+                </div>
+                <div class="col-span-1">
+                  <label v-if="index === 0" class="block font-bold mb-3">Giá bán</label>
+                  <InputNumber v-model="phuTung.giaBan" class="w-full" fluid input-id="tienCong"
+                    placeholder="Nhập giá tiền" mode="currency" currency="VND" locale="vi-VN" />
                 </div>
               </div>
+              <!-- Nút thêm phụ tùng -->
               <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="col-span-1">
-                  <label class="block font-bold mb-3">Số lượng</label>
-                  <InputNumber v-model="soLuong" name="soLuong" placeholder="Nhập số lượng"
-                    :invalid="errors.soLuong ? true : false" class="w-full" />
-                  <span class="text-red-500">{{ errors.soLuong }}</span>
-                </div>
-                <div class="col-span-1">
-                  <label class="block font-bold mb-3">Giá bán</label>
-                  <InputNumber v-model="giaBan" class="w-full" fluid input-id="giaBan" placeholder="Nhập giá bán"
-                    mode="currency" currency="VND" locale="vi-VN" :invalid="errors.giaBan != null" />
-                  <span class="text-red-500">{{ errors.giaBan }}</span>
-                </div>
                 <div class="col-span-1">
                   <label class="block font-bold mb-3">Tiền công</label>
                   <InputNumber v-model="tienCong" class="w-full" fluid input-id="tienCong" placeholder="Nhập tiền công"
@@ -158,9 +158,21 @@
                     :invalid="errors.chiPhiPhatSinh != null" />
                   <span class="text-red-500">{{ errors.chiPhiPhatSinh }}</span>
                 </div>
-                <div class="col-span-1">
+              </div>
+            </div>
+            <div class="border-t border-gray-300">
+              <div class="flex justify-between mx-28 my-3">
+                <div class="mt-6">
+                  <div class="flex items-center text-xl">
+                    <label class="block font-bold mr-3">Tổng tiền thanh toán</label>
+                    <div>
+                      {{ tongTienSuaXe }}
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-6">
                   <div class="flex items-center">
-                    <label class="block font-bold mr-3">Đã thanh toán</label>
+                    <label class="block font-bold mr-3 text-xl">Tình trạng thanh toán</label>
                     <Checkbox v-model="daThanhToan" inputId="daThanhToan" name="daThanhToan" value="daThanhToan"
                       :invalid="errors.daThanhToan != null" />
                     <span class="text-red-500">{{ errors.daThanhToan }}</span>
@@ -172,6 +184,7 @@
         </div>
       </Tabs>
     </div>
+
     <template #footer>
       <Button label="Hủy" icon="pi pi-times" class="p-button-danger" @click="close" />
       <Button label="Lưu" icon="pi pi-check" class="p-button-primary" @click="onSubmit" />
@@ -205,7 +218,14 @@ const internalVisible = computed({
 const handleHideModal = () => {
   emit('hideModal');
   resetForm();
-
+  phuTungs.value = [
+    {
+      maPhuTung: '',
+      tenPhuTung: '',
+      soLuong: 0,
+      giaBan: 0,
+    },
+  ];
 };
 const schema = yup.object({
   // maPhuTung: yup
@@ -221,6 +241,15 @@ const { defineField, handleSubmit, errors, resetForm } = useForm({
 
 const close = () => {
   internalVisible.value = false;
+  resetForm();
+  phuTungs.value = [
+    {
+      maPhuTung: '',
+      tenPhuTung: '',
+      soLuong: 0,
+      giaBan: 0,
+    },
+  ];
 }
 const onOpenMap = () => {
   visible_map.value = true;
@@ -252,15 +281,53 @@ const [soVin] = defineField('soVin');
 const [ngaySua] = defineField('ngaySua');
 const [kinhDo] = defineField('kinhDo');
 const [viDo] = defineField('viDo');
-const [maPhuTung] = defineField('maPhuTung');
-const [tenPhuTung] = defineField('tenPhuTung');
-const [soLuong] = defineField('soLuong');
-const [giaBan] = defineField('giaBan');
 const [tienCong] = defineField('tienCong');
 const [chiPhiPhatSinh] = defineField('chiPhiPhatSinh');
 const [daThanhToan] = defineField('daThanhToan');
 
+const tongTienSuaXe = computed(() => {
+  let sumHangHoa = 0
+  for (var i = 0; i < phuTungs.value.length; i++) {
+    sumHangHoa += Number(phuTungs.value[i].soLuong) * Number(phuTungs.value[i].giaBan)
+  }
+  return (sumHangHoa + Number(tienCong.value) + Number(chiPhiPhatSinh.value) || 0);
+});
+const phuTungs = ref([
+  {
+    maPhuTung: '',
+    tenPhuTung: '',
+    soLuong: 0,
+    giaBan: 0,
+  },
+]);
+
+// Hàm thêm phụ tùng mới
+const themPhuTung = () => {
+  phuTungs.value.push({
+    maPhuTung: '',
+    tenPhuTung: '',
+    soLuong: 0,
+    giaBan: 0,
+  });
+  console.log(phuTungs.value)
+};
 const onSubmit = handleSubmit(() => {
   console.log('onSubmit');
 });
 </script>
+
+<style scoped>
+.custom-button {
+  background-color: #0b5ee7;
+  color: white;
+  width: 100%;
+  margin-top: auto;
+  transition: background-color 0.3s ease;
+  /* Tạo hiệu ứng mượt */
+}
+
+.custom-button:hover {
+  background-color: #8586ec;
+  /* Màu khi hover */
+}
+</style>

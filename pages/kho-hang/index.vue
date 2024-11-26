@@ -47,7 +47,7 @@
         </Column>
         <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
         <Column field="ngayCapNhat" header="Ngày cập nhật"></Column>
-        <Column field="soLuongTon" header="Số lượng còn lại"></Column>
+        <Column field="soLuongTon" header="Tổng số phụ tùng"></Column>
         <Column field="giaNhap" header="Giá nhập"></Column>
         <Column field="giaBan" header="Giá bán"></Column>
         <!-- <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
