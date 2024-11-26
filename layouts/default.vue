@@ -93,21 +93,21 @@
     </header>
 
     <!-- Content Area -->
-    <main class="content-container ml-[250px] mt-[80px] mb-[60px]">
-      <slot />
-    </main>
-
+    <div class="layout-main-container ml-[250px] mt-[80px]">
+      <div class="layout-main">
+        <NuxtPage />
+      </div>
+      <footer class="footer  bg-gray-200 text-center">
+        <p>© 2024 Trịnh Ngọc Cường</p>
+      </footer>
+    </div>
     <!-- Footer -->
-    <footer class="footer bg-gray-200 text-center py-4 fixed bottom-0 w-[calc(100%-250px)] ml-[250px] z-5">
+    <!-- <footer class="footer bg-gray-200 text-center py-4 fixed bottom-0 w-[calc(100%-250px)] ml-[250px] z-5">
       <p>© 2024 Trịnh Ngọc Cường</p>
-    </footer>
+    </footer> -->
 
     <ConfirmDialog class="w-auto" group="templateConfirmDialog">
       <template #message="slotProps">
-        <!-- <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-          <i :class="slotProps.message.icon" class="!text-6xl text-neutral-500 pt-2" />
-          <p>{{ slotProps.message.message }}</p>
-        </div> -->
         <div class="flex flex-row items-center w-full gap-2 border-b border-surface-200 dark:border-surface-700">
           <i :class="slotProps.message.icon" class="mr-3" style="font-size: 2rem" />
           <span>{{ slotProps.message.message }}</span>
@@ -143,6 +143,19 @@ const items = ref([
         }
       },
       {
+        label: 'Hàng nhập',
+        svgIcon: `
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.47998 8.14998C7.72998 8.25998 7.99 8.33 8.25 8.39V17.91C8.09 17.87 7.93003 17.81 7.78003 17.74L1.78003 15.07C0.700029 14.59 0 13.52 0 12.33V5.67C0 5.4 0.0399854 5.12999 0.109985 4.87999L7.47998 8.14998ZM11.8199 5.92L3.67004 2.08998L1.78003 2.92998C1.43003 3.07998 1.13 3.29999 0.869995 3.55999L8.07996 6.76998C8.65996 7.02998 9.33004 7.02998 9.92004 6.76998L11.8199 5.92ZM17.13 3.55999C16.87 3.29999 16.57 3.07998 16.22 2.92998L10.22 0.259998C9.43997 -0.0900024 8.56003 -0.0900024 7.78003 0.259998L5.48999 1.27999L13.64 5.10997L17.13 3.55999ZM17.89 4.87999L14.38 6.43999V8.89C14.38 9.3 14.04 9.64 13.63 9.64C13.22 9.64 12.88 9.3 12.88 8.89V7.09999L10.52 8.14998C10.27 8.24998 10.01 8.33 9.75 8.39V17.91C9.91 17.87 10.07 17.81 10.22 17.74L16.22 15.07C17.3 14.59 18 13.52 18 12.33V5.67C18 5.4 17.96 5.12999 17.89 4.87999Z" fill="#00FF00"/>
+          </svg>
+
+    `,
+        command: () => {
+          router.push('/hang-nhap');
+        }
+
+      },
+      {
         label: 'Kho hàng',
         svgIcon: `
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,6 +165,19 @@ const items = ref([
     `,
         command: () => {
           router.push('/kho-hang');
+        }
+
+      },
+      {
+        label: 'Loại hàng',
+        svgIcon: `
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.47998 8.14998C7.72998 8.25998 7.99 8.33 8.25 8.39V17.91C8.09 17.87 7.93003 17.81 7.78003 17.74L1.78003 15.07C0.700029 14.59 0 13.52 0 12.33V5.67C0 5.4 0.0399854 5.12999 0.109985 4.87999L7.47998 8.14998ZM11.8199 5.92L3.67004 2.08998L1.78003 2.92998C1.43003 3.07998 1.13 3.29999 0.869995 3.55999L8.07996 6.76998C8.65996 7.02998 9.33004 7.02998 9.92004 6.76998L11.8199 5.92ZM17.13 3.55999C16.87 3.29999 16.57 3.07998 16.22 2.92998L10.22 0.259998C9.43997 -0.0900024 8.56003 -0.0900024 7.78003 0.259998L5.48999 1.27999L13.64 5.10997L17.13 3.55999ZM17.89 4.87999L14.38 6.43999V8.89C14.38 9.3 14.04 9.64 13.63 9.64C13.22 9.64 12.88 9.3 12.88 8.89V7.09999L10.52 8.14998C10.27 8.24998 10.01 8.33 9.75 8.39V17.91C9.91 17.87 10.07 17.81 10.22 17.74L16.22 15.07C17.3 14.59 18 13.52 18 12.33V5.67C18 5.4 17.96 5.12999 17.89 4.87999Z" fill="#00FF00"/>
+          </svg>
+
+    `,
+        command: () => {
+          router.push('/loai-hang');
         }
 
       },
@@ -220,16 +246,7 @@ const items = ref([
 }
 
 /* Footer */
-.footer {
-  display: flex;
-  height: 60px;
-  position: relative;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
 
-}
 
 /* Content */
 /* .content-container {
@@ -239,15 +256,33 @@ const items = ref([
   border-radius: 10px;
   overflow: hidden;
 } */
-.content-container {
+/* .content-container {
   width: calc(100vw - 250px);
-  /* Tính toán phù hợp với margin-left */
   overflow: hidden;
-  /* Loại bỏ cuộn */
   border-radius: 10px;
-}
+} */
 
 .p-menu {
   border: 0;
+}
+
+.layout-main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  justify-content: space-between;
+}
+
+.layout-main {
+  flex: 1 1 auto;
+  padding-bottom: 2rem;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0 1rem 0;
+  gap: 0.5rem;
 }
 </style>

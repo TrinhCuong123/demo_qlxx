@@ -41,15 +41,6 @@
         </Column>
         <Column field="maPhuTung" header="Mã phụ tùng"></Column>
         <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
-        <Column field="ngaySanXuat" header="Ngày sản xuất"></Column>
-        <Column field="hanSuDung" header="Hạn sử dụng"></Column>
-        <Column field="ngayNhap" header="Ngày nhập hàng"></Column>
-        <Column field="soLuong" header="Số lượng"></Column>
-        <Column field="giaNhap" header="Giá nhập">
-          <template #body="slotProps">
-            <span>{{ slotProps.data.giaNhap }} &#8363;</span>
-          </template>
-        </Column>
         <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
           <template #header>
             <span class="m-auto"><b>Thao tác</b></span>
@@ -66,8 +57,8 @@
       </DataTable>
     </div>
   </div>
-  <HangNhapDialogCreateHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
-  <HangNhapDialogEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
+  <LoaiHangDialogCreateLoaiHang :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
+  <LoaiHangDialogEditLoaiHang :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
 <script setup lang="ts">
 import { setTitleHeader } from '~/composables/globalTitleHeader';

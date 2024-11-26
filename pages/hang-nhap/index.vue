@@ -30,7 +30,7 @@
     </div>
 
     <div class="m-4" style="padding-bottom: 16px;">
-      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines>
+      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines paginator :rows="5">
         <Column class="text-center" body-style="text-align: center">
           <template #header>
             <span class="m-auto"><b>STT</b></span>
@@ -39,22 +39,13 @@
             {{ getRowSTT(slotPros.index) }}
           </template>
         </Column>
-        <Column field="maPhuTung" header="Mã phụ tùng"></Column>
-        <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
-        <Column field="ngaySanXuat" header="Ngày sản xuất"></Column>
-        <Column field="hanSuDung" header="Hạn sử dụng"></Column>
-        <Column field="ngayNhap" header="Ngày nhập hàng"></Column>
-        <Column field="soLuong" header="Số lượng"></Column>
-        <Column field="giaNhap" header="Giá nhập">
-          <template #body="slotProps">
-            <span>{{ slotProps.data.giaNhap }} &#8363;</span>
+        <Column field="tenLanNhap" header="Tên lần nhập hàng" className="text-sm">
+          <template #body="{ data }">
+            <NuxtLink class="font-bold text-xl text-cyan-800" :to="`/hang-nhap/${data.id}`">{{ data.tenLanNhap
+              }}</NuxtLink>
           </template>
         </Column>
-        <Column field="giaBan" header="Giá bán">
-          <template #body="slotProps">
-            <span>{{ slotProps.data.giaBan }} &#8363;</span>
-          </template>
-        </Column>
+        <Column field="ngayNhapHang" header="Ngày nhập hàng" className="text-sm"></Column>
         <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
           <template #header>
             <span class="m-auto"><b>Thao tác</b></span>
@@ -131,25 +122,13 @@ const getRowSTT = (index: number) => {
 const listHangNhap = [
   {
     id: 1,
-    maPhuTung: 'PT001',
-    tenPhuTung: 'Bộ lọc dầu',
-    ngaySanXuat: '2023-01-15',
-    hanSuDung: '2025-01-15',
-    ngayNhap: '2023-02-01',
-    soLuong: 100,
-    giaNhap: '50.000',
-    giaBan: '60.000'
+    tenLanNhap: 'PT001',
+    ngayNhapHang: '2023-02-01',
   },
   {
     id: 2,
-    maPhuTung: 'PT002',
-    tenPhuTung: 'Dây curoa',
-    ngaySanXuat: '2023-03-20',
-    hanSuDung: '2026-03-20',
-    ngayNhap: '2023-04-05',
-    soLuong: 200,
-    giaNhap: '75.000',
-    giaBan: '85.000'
+    tenLanNhap: 'PT002',
+    ngayNhapHang: '2023-04-05',
   }
 ];
 </script>

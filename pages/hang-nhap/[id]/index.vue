@@ -24,14 +24,43 @@
         </div>
       </template>
     </Toolbar>
-    <!-- <div style="display: flex; justify-content: flex-end;">
+    <div style="display: flex; justify-content:space-between;">
+      <Button label="Quay lại" icon="pi pi-arrow-left" severity="danger" class="flex ml-4 justify-items-end"
+        title="Thêm mới" @click="onBack" />
       <Button label="Thêm mới" icon="pi pi-plus" class="flex mr-4 justify-items-end" title="Thêm mới"
         @click="onOpenModal" />
-    </div> -->
+    </div>
+
+    <div class="m-6">
+      <div class="flex">
+        <div class="font-bold mr-3">
+          Tên lần nhập hàng:
+        </div>
+        <div>
+          Lần nhập 1
+        </div>
+      </div>
+      <div class="flex">
+        <div class="font-bold mr-3">
+          Ngày nhập:
+        </div>
+        <div>
+          2023-02-03
+        </div>
+      </div>
+      <div class="flex">
+        <div class="font-bold mr-3">
+          Tổng tiền:
+        </div>
+        <div>
+          30.000.000 &#8363;
+        </div>
+      </div>
+    </div>
 
     <div class="m-4" style="padding-bottom: 16px;">
-      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines>
-        <Column class="text-center" body-style="text-align: center; width: 10px">
+      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines paginator :rows="5">
+        <Column class="text-center" body-style="text-align: center">
           <template #header>
             <span class="m-auto"><b>STT</b></span>
           </template>
@@ -39,39 +68,42 @@
             {{ getRowSTT(slotPros.index) }}
           </template>
         </Column>
-        <Column field="maPhuTung" header="Mã phụ tùng">
-          <template #body="{ data }">
-            <NuxtLink v-if="mode === 'default'" class="font-bold text-xl text-cyan-800" :to="`/kho-hang/${data.id}/hang-nhap`">{{ data.maPhuTung
-              }}</NuxtLink>
-            <NuxtLink v-if="mode === 'bon-phan'" :to="`/vuon-trong/${data.id}/bon-phan`">{{ data.maPhuTung }}
-            </NuxtLink>
+        <Column field="maPhuTung" header="Mã phụ tùng" className="text-sm"></Column>
+        <Column field="tenPhuTung" header="Tên phụ tùng" className="text-sm"></Column>
+        <Column field="ngaySanXuat" header="Ngày sản xuất" className="text-sm"></Column>
+        <Column field="hanSuDung" header="Hạn sử dụng" className="text-sm"></Column>
+        <Column field="soLuong" header="Số lượng nhập" className="text-sm"></Column>
+        <Column field="giaNhap" header="Giá nhập" className="text-sm">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.giaNhap }} &#8363;</span>
           </template>
         </Column>
-        <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
-        <Column field="soLuongTon" header="Số lượng còn lại"></Column>
-        <Column field="ngayCapNhat" header="Ngày cập nhật"></Column>
-        <Column field="giaNhap" header="Giá nhập"></Column>
-        <Column field="giaBan" header="Giá bán"></Column>
-        <!-- <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
+        <Column field="giaBan" header="Giá bán">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.giaBan }} &#8363;</span>
+          </template>
+        </Column>
+        <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
           <template #header>
             <span class="m-auto"><b>Thao tác</b></span>
           </template>
           <template #body="slotProps">
             <div class="text-center">
               <Button icon="pi pi-pencil" outlined rounded severity="success" class="mr-2" title="chỉnh sửa"
-                @click="onOpenEditModal(slotProps.data)" />
+                @click="onOpenEditModal()" />
               <Button icon="pi pi-trash" outlined rounded severity="danger" title="Xóa"
                 @click="confirmDeleteProject()" />
             </div>
           </template>
-        </Column> -->
+        </Column>
       </DataTable>
     </div>
   </div>
-  <KhoHangDialogCreateKhoHang :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
-  <KhoHangDialogEditKhoHang :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
+  <HangNhapDialogCreateHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
+  <HangNhapDialogEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
-<script setup>
+
+<script setup lang="ts">
 import { setTitleHeader } from '~/composables/globalTitleHeader';
 import { ref } from 'vue';
 import 'primeicons/primeicons.css'
@@ -79,25 +111,25 @@ import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
 import { useRouter } from 'vue-router';
 
-setTitleHeader("Kho hàng");
+setTitleHeader("Hàng nhập");
 
+const router = useRouter();
 const confirm = useConfirm();
 const toast = useToast();
 const keyWords = ref();
 const hangNhap = ref();
 const isOpenModal = ref();
 const isOpenEditModel = ref();
-const route = useRouter();
-let mode = "default"; // Giá trị mặc định
-if (route?.query?.["mode"]) {
-    mode = route.query["mode"].toString();
-}
+
 
 const onOpenEditModal = () => {
   isOpenEditModel.value = true;
 };
 const onOpenModal = () => {
   isOpenModal.value = true;
+};
+const onBack = () => {
+  router.push('/hang-nhap');
 };
 
 
@@ -124,7 +156,7 @@ const clearFilter = () => {
   keyWords.value = ''
   hangNhap.value = null
 }
-const getRowSTT = (index) => {
+const getRowSTT = (index: number) => {
   return index + 1;
 }
 
@@ -138,7 +170,8 @@ const listHangNhap = [
     hanSuDung: '2025-01-15',
     ngayNhap: '2023-02-01',
     soLuong: 100,
-    giaNhap: '50.000'
+    giaNhap: '50.000',
+    giaBan: '60.000'
   },
   {
     id: 2,
@@ -148,7 +181,8 @@ const listHangNhap = [
     hanSuDung: '2026-03-20',
     ngayNhap: '2023-04-05',
     soLuong: 200,
-    giaNhap: '75.000'
+    giaNhap: '75.000',
+    giaBan: '85.000'
   }
 ];
 </script>
