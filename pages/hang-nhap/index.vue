@@ -31,7 +31,7 @@
 
     <div class="m-4" style="padding-bottom: 16px;">
       <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines paginator :rows="5">
-        <Column class="text-center" body-style="text-align: center">
+        <Column class="text-center" body-style="text-align: center; width:10px">
           <template #header>
             <span class="m-auto"><b>STT</b></span>
           </template>

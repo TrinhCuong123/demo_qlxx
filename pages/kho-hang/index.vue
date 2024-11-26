@@ -41,15 +41,13 @@
         </Column>
         <Column field="maPhuTung" header="Mã phụ tùng">
           <template #body="{ data }">
-            <NuxtLink v-if="mode === 'default'" class="font-bold text-xl text-cyan-800" :to="`/kho-hang/${data.id}/hang-nhap`">{{ data.maPhuTung
+            <NuxtLink class="font-bold text-xl text-cyan-800" :to="`/kho-hang/${data.id}`">{{ data.maPhuTung
               }}</NuxtLink>
-            <NuxtLink v-if="mode === 'bon-phan'" :to="`/vuon-trong/${data.id}/bon-phan`">{{ data.maPhuTung }}
-            </NuxtLink>
           </template>
         </Column>
         <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
-        <Column field="soLuongTon" header="Số lượng còn lại"></Column>
         <Column field="ngayCapNhat" header="Ngày cập nhật"></Column>
+        <Column field="soLuongTon" header="Số lượng còn lại"></Column>
         <Column field="giaNhap" header="Giá nhập"></Column>
         <Column field="giaBan" header="Giá bán"></Column>
         <!-- <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
@@ -75,47 +73,16 @@
 import { setTitleHeader } from '~/composables/globalTitleHeader';
 import { ref } from 'vue';
 import 'primeicons/primeicons.css'
-import { useConfirm } from "primevue/useconfirm";
-import { useToast } from "primevue/usetoast";
-import { useRouter } from 'vue-router';
+// import { useConfirm } from "primevue/useconfirm";
+// import { useToast } from "primevue/usetoast";
+// import { useRouter } from 'vue-router';
 
 setTitleHeader("Kho hàng");
 
-const confirm = useConfirm();
-const toast = useToast();
 const keyWords = ref();
 const hangNhap = ref();
 const isOpenModal = ref();
 const isOpenEditModel = ref();
-const route = useRouter();
-let mode = "default"; // Giá trị mặc định
-if (route?.query?.["mode"]) {
-    mode = route.query["mode"].toString();
-}
-
-const onOpenEditModal = () => {
-  isOpenEditModel.value = true;
-};
-const onOpenModal = () => {
-  isOpenModal.value = true;
-};
-
-
-const confirmDeleteProject = () => {
-  ConfirmDialog.showConfirmDialog(
-    confirm,
-    `${'Bạn có chắc muốn cập nhật thông tin báo cáo này?'
-    }`,
-    'Xác nhận',
-    'pi pi-question-circle',
-    () => {
-      console.log(1);
-    },
-    () => { },
-    '',
-    ' p-button-danger',
-  );
-};
 
 const timKiem = () => {
   console.log("Đây là tìm kiếm");

@@ -26,7 +26,7 @@
     </Toolbar>
     <div style="display: flex; justify-content:space-between;">
       <Button label="Quay lại" icon="pi pi-arrow-left" severity="danger" class="flex ml-4 justify-items-end"
-        title="Thêm mới" @click="onBack" />
+        title="Quay lại" @click="onBack" />
       <Button label="Thêm mới" icon="pi pi-plus" class="flex mr-4 justify-items-end" title="Thêm mới"
         @click="onOpenModal" />
     </div>
@@ -99,8 +99,8 @@
       </DataTable>
     </div>
   </div>
-  <HangNhapDialogCreateHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
-  <HangNhapDialogEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
+  <HangNhapDialogCreateDetailHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
+  <HangNhapDialogDetailEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
 
 <script setup lang="ts">
@@ -111,7 +111,7 @@ import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
 import { useRouter } from 'vue-router';
 
-setTitleHeader("Hàng nhập");
+setTitleHeader("Chi tiết lần nhập 1");
 
 const router = useRouter();
 const confirm = useConfirm();
