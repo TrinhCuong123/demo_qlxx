@@ -1,5 +1,5 @@
 <template>
-  <Dialog v-model:visible="internalVisible" :style="{ width: '800px' }" :header="'Sửa hàng nhập'" :modal="true"
+  <Dialog v-model:visible="internalVisible" :style="{ width: '800px' }" :header="'Sửa lần nhập hàng'" :modal="true"
     :close-on-escape="true">
     <div class="gap-4 grid grid-cols-1 sm:grid-cols-2">
       <div class="min-w-40">

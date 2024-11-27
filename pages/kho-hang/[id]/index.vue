@@ -24,18 +24,13 @@
         </div>
       </template>
     </Toolbar>
-    <div style="display: flex;">
+    <div>
       <Button label="Quay lại" icon="pi pi-arrow-left" severity="danger" class="flex ml-4 justify-items-end"
         title="Quay lại" @click="onBack" />
     </div>
-    <!-- <div style="display: flex; justify-content: flex-end;">
-      <Button label="Thêm mới" icon="pi pi-plus" class="flex mr-4 justify-items-end" title="Thêm mới"
-        @click="onOpenModal" />
-    </div> -->
-
     <div class="m-4" style="padding-bottom: 16px;">
-      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines>
-        <Column class="text-center" body-style="text-align: center; width: 10px">
+      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines paginator :rows="5">
+        <Column class="text-center" body-style="text-align: center">
           <template #header>
             <span class="m-auto"><b>STT</b></span>
           </template>
@@ -43,81 +38,44 @@
             {{ getRowSTT(slotPros.index) }}
           </template>
         </Column>
-        <Column field="maPhuTung" header="Mã phụ tùng">
-          <!-- <template #body="{ data }">
-            <NuxtLink v-if="mode === 'default'" class="font-bold text-xl text-cyan-800" :to="`/kho-hang/${data.id}/hang-nhap`">{{ data.maPhuTung
-              }}</NuxtLink>
-            <NuxtLink v-if="mode === 'bon-phan'" :to="`/vuon-trong/${data.id}/bon-phan`">{{ data.maPhuTung }}
-            </NuxtLink>
-          </template> -->
-        </Column>
-        <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
-        <Column field="ngayCapNhat" header="Ngày cập nhật"></Column>
-        <Column field="soLuongTon" header="Số lượng còn lại"></Column>
-        <Column field="giaNhap" header="Giá nhập"></Column>
-        <Column field="giaBan" header="Giá bán"></Column>
-        <!-- <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
-          <template #header>
-            <span class="m-auto"><b>Thao tác</b></span>
-          </template>
+        <Column field="ngaySanXuat" header="Ngày sản xuất" className="text-sm"></Column>
+        <Column field="hanSuDung" header="Hạn sử dụng" className="text-sm"></Column>
+        <Column field="soLuong" header="Số lượng nhập" className="text-sm"></Column>
+        <Column field="soLuongTon" header="Số lượng còn lại" className="text-sm"></Column>
+        <Column field="giaNhap" header="Giá nhập" className="text-sm">
           <template #body="slotProps">
-            <div class="text-center">
-              <Button icon="pi pi-pencil" outlined rounded severity="success" class="mr-2" title="chỉnh sửa"
-                @click="onOpenEditModal(slotProps.data)" />
-              <Button icon="pi pi-trash" outlined rounded severity="danger" title="Xóa"
-                @click="confirmDeleteProject()" />
-            </div>
+            <span>{{ slotProps.data.giaNhap }} &#8363;</span>
           </template>
-        </Column> -->
+        </Column>
+        <Column field="giaBan" header="Giá bán">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.giaBan }} &#8363;</span>
+          </template>
+        </Column>
       </DataTable>
     </div>
   </div>
-  <KhoHangDialogCreateKhoHang :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
-  <KhoHangDialogEditKhoHang :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
+  <HangNhapDialogCreateDetailHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
+  <HangNhapDialogEditDetailHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
 </template>
-<script setup>
+
+<script setup lang="ts">
 import { setTitleHeader } from '~/composables/globalTitleHeader';
 import { ref } from 'vue';
 import 'primeicons/primeicons.css'
-import { useConfirm } from "primevue/useconfirm";
-import { useToast } from "primevue/usetoast";
 import { useRouter } from 'vue-router';
 
-setTitleHeader("Lịch sử nhập phụ tùng A");
+setTitleHeader("Lịch sử nhập PT001 - Bộ lọc dầu");
 
 const router = useRouter();
-const confirm = useConfirm();
-const toast = useToast();
 const keyWords = ref();
 const hangNhap = ref();
 const isOpenModal = ref();
 const isOpenEditModel = ref();
 
-const onOpenEditModal = () => {
-  isOpenEditModel.value = true;
-};
-const onOpenModal = () => {
-  isOpenModal.value = true;
-};
+
 const onBack = () => {
   router.push('/kho-hang');
-};
-
-
-const confirmDeleteProject = () => {
-  ConfirmDialog.showConfirmDialog(
-    confirm,
-    `${'Bạn có chắc muốn cập nhật thông tin báo cáo này?'
-    }`,
-    'Xác nhận',
-    'pi pi-question-circle',
-    () => {
-      console.log(1);
-    },
-    () => { },
-    '',
-    ' p-button-danger',
-  );
 };
 
 const timKiem = () => {
@@ -127,7 +85,7 @@ const clearFilter = () => {
   keyWords.value = ''
   hangNhap.value = null
 }
-const getRowSTT = (index) => {
+const getRowSTT = (index: number) => {
   return index + 1;
 }
 
@@ -135,23 +93,25 @@ const getRowSTT = (index) => {
 const listHangNhap = [
   {
     id: 1,
-    maPhuTung: 'PT001',
-    tenPhuTung: 'Bộ lọc dầu',
+    tenPhuTung: 'PT001 - Bộ lọc dầu',
     ngaySanXuat: '2023-01-15',
     hanSuDung: '2025-01-15',
     ngayNhap: '2023-02-01',
     soLuong: 100,
-    giaNhap: '50.000'
+    soLuongTon: 90,
+    giaNhap: '50.000',
+    giaBan: '60.000'
   },
   {
     id: 2,
-    maPhuTung: 'PT002',
-    tenPhuTung: 'Dây curoa',
+    tenPhuTung: 'PT002 - Dây curoa',
     ngaySanXuat: '2023-03-20',
     hanSuDung: '2026-03-20',
     ngayNhap: '2023-04-05',
     soLuong: 200,
-    giaNhap: '75.000'
+    soLuongTon: 200,
+    giaNhap: '75.000',
+    giaBan: '85.000'
   }
 ];
 </script>

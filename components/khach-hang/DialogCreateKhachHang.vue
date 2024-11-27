@@ -76,7 +76,12 @@
                   <span class="text-red-500">{{ errors.ngaySua }}</span>
                 </div>
               </div>
-              <div class="grid grid-cols-3 gap-4 mb-4">
+              <div>
+                <label class="block font-bold mb-3">Ghi chú</label>
+
+                <Textarea v-model="ghiChu" class="w-full" rows="3"/>
+              </div>
+              <div class="grid grid-cols-3 gap-4 my-4">
                 <div class="col-span-1">
                   <label class="block font-bold mb-3 required">Kinh độ</label>
                   <InputNumber v-model="kinhDo" class="w-full" name="kinhDo" placeholder="Nhập kinh độ" mode="decimal"
@@ -144,7 +149,7 @@
                 </div>
               </div>
               <!-- Nút thêm phụ tùng -->
-              <div class="grid grid-cols-2 gap-4 mb-4">
+              <div class="grid grid-cols-2 gap-4 my-5">
                 <div class="col-span-1">
                   <label class="block font-bold mb-3">Tiền công</label>
                   <InputNumber v-model="tienCong" class="w-full" fluid input-id="tienCong" placeholder="Nhập tiền công"
@@ -166,7 +171,7 @@
                   <div class="flex items-center text-xl">
                     <label class="block font-bold mr-3">Tổng tiền thanh toán</label>
                     <div>
-                      {{ tongTienSuaXe }}
+                      {{ tongTienSuaXe }} &#8363;
                     </div>
                   </div>
                 </div>
@@ -284,6 +289,7 @@ const [viDo] = defineField('viDo');
 const [tienCong] = defineField('tienCong');
 const [chiPhiPhatSinh] = defineField('chiPhiPhatSinh');
 const [daThanhToan] = defineField('daThanhToan');
+const [ghiChu] = defineField('ghiChu');
 
 const tongTienSuaXe = computed(() => {
   let sumHangHoa = 0

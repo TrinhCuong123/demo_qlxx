@@ -9,8 +9,6 @@
             </InputIcon>
             <InputText v-model="keyWords" placeholder="Tìm kiếm" class="w-full" />
           </IconField>
-          <Select v-model="hangNhap" :options="listHangNhap" option-label="tenPhuTung" option-value="id"
-            placeholder="Chọn loại hàng" class="w-48" show-clear />
         </div>
       </template>
 
@@ -24,13 +22,8 @@
         </div>
       </template>
     </Toolbar>
-    <div style="display: flex; justify-content: flex-end;">
-      <Button label="Thêm mới" icon="pi pi-plus" class="flex mr-4 justify-items-end" title="Thêm mới"
-        @click="onOpenModal" />
-    </div>
-
     <div class="m-4" style="padding-bottom: 16px;">
-      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem" showGridlines>
+      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem;" showGridlines>
         <Column class="text-center" body-style="text-align: center">
           <template #header>
             <span class="m-auto"><b>STT</b></span>
@@ -39,27 +32,20 @@
             {{ getRowSTT(slotPros.index) }}
           </template>
         </Column>
-        <Column field="maPhuTung" header="Mã phụ tùng"></Column>
-        <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
-        <Column field="ngaySanXuat" header="Ngày sản xuất"></Column>
-        <Column field="hanSuDung" header="Hạn sử dụng"></Column>
-        <Column field="ngayNhap" header="Ngày nhập hàng"></Column>
-        <Column field="soLuong" header="Số lượng"></Column>
-        <Column field="giaNhap" header="Giá nhập">
-          <template #body="slotProps">
-            <span>{{ slotProps.data.giaNhap }} &#8363;</span>
-          </template>
-        </Column>
+        <Column field="maPhuTung" header="Doanh thu tháng"></Column>
+        <Column field="tenPhuTung" header="Tổng chi phí"></Column>
+        <Column field="ngaySanXuat" header="Tổng doanh thu"></Column>
+        <Column field="ngayNhap" header="Tổng dư nợ"></Column>
+        <Column field="hanSuDung" header="Tổng lợi nhuận"></Column>
+        <Column field="soLuong" header="Tổng thu nhập"></Column>
         <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
           <template #header>
             <span class="m-auto"><b>Thao tác</b></span>
           </template>
           <template #body="slotProps">
             <div class="text-center">
-              <Button icon="pi pi-pencil" outlined rounded severity="success" class="mr-2" title="chỉnh sửa"
-                @click="onOpenEditModal(slotProps.data)" />
-              <Button icon="pi pi-trash" outlined rounded severity="danger" title="Xóa"
-                @click="confirmDeleteProject()" />
+              <Button v-tooltip="'Xem'" icon="pi pi-eye" outlined rounded severity="info"
+                class="mr-2" @click="onOpenShowModel" />
             </div>
           </template>
         </Column>

@@ -39,15 +39,12 @@
             {{ getRowSTT(slotPros.index) }}
           </template>
         </Column>
-        <Column field="maPhuTung" header="Mã phụ tùng"></Column>
-        <Column field="tenPhuTung" header="Tên phụ tùng"></Column>
-        <Column field="ngaySanXuat" header="Ngày sản xuất"></Column>
-        <Column field="hanSuDung" header="Hạn sử dụng"></Column>
-        <Column field="ngayNhap" header="Ngày nhập hàng"></Column>
-        <Column field="soLuong" header="Số lượng"></Column>
-        <Column field="giaNhap" header="Giá nhập">
+        <Column field="tenNhanVien" header="Tên nhân viên"></Column>
+        <Column field="dienThoai" header="Số điện thoại"></Column>
+        <Column field="diaChi" header="Địa chỉ"></Column>
+        <Column field="tienLuong" header="Tiền lương">
           <template #body="slotProps">
-            <span>{{ slotProps.data.giaNhap }} &#8363;</span>
+            <span>{{ slotProps.data.tienLuong }} &#8363;</span>
           </template>
         </Column>
         <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">

@@ -17,36 +17,16 @@
     </div> -->
     <div class="gap-4 grid grid-cols-1 sm:grid-cols-3">
       <div class="min-w-40">
-        <label for="maPhuTung" class="block font-bold mb-3">Mã phụ tùng</label>
-      <Select 
-        id="maPhuTung" 
-        v-model="selectedMaPhuTung" 
-        :options="listLoaiHang" 
-        option-label="maPhuTung" 
-        option-value="id" 
-        placeholder="Chọn mã phụ tùng"
-        size="large"
-        class="mr-2 w-full h-[42.72px]"
-        show-clear
-        filter
-        @change="updateTenPhuTung" 
-      />
+        <label for="tenPhuTung" class="block font-bold mb-3">Tên phụ tùng</label>
+        <Select id="tenPhuTung" v-model="tenPhuTung" :options="listLoaiHang" option-label="tenPhuTung"
+          option-value="id" placeholder="Chọn tên phụ tùng" size="large" show-clear filter
+          class="mr-2 w-full h-[42.72px]" />
       </div>
       <div class="min-w-40">
-        <label for="tenPhuTung" class="block font-bold mb-3">Tên phụ tùng</label>
-      <Select 
-        id="tenPhuTung" 
-        v-model="selectedTenPhuTung" 
-        :options="listLoaiHang" 
-        option-label="tenPhuTung" 
-        option-value="id" 
-        placeholder="Chọn tên phụ tùng"
-        size="large"
-        show-clear
-        filter
-        class="mr-2 w-full h-[42.72px]"
-        @change="updateMaPhuTung" 
-      />
+        <label for="ngayNhap" class="font-bold block mb-3 required">Ngày nhập hàng</label>
+        <DatePicker v-model="ngayNhap" :invalid="errors.ngayNhap != null" input-class="h-[42.72px]"
+          date-format="dd/mm/yy" show-icon fluid placeholder="dd/mm/yyyy" input-id="ngayNhap" />
+        <span class="text-red-500">{{ errors.ngayNhap }}</span>
       </div>
       <div class="min-w-40">
         <label for="tenPhuTung" class="block font-bold mb-3 required">Thêm phụ tùng</label>
@@ -67,24 +47,25 @@
         <span class="text-red-500">{{ errors.hanSuDung }}</span>
       </div>
       <div class="min-w-40">
-        <label for="ngayNhap" class="font-bold block mb-3 required">Ngày nhập hàng</label>
-        <DatePicker v-model="ngayNhap" :invalid="errors.ngayNhap != null" input-class="h-[42.72px]"
-          date-format="dd/mm/yy" show-icon fluid placeholder="dd/mm/yyyy" input-id="ngayNhap" />
-        <span class="text-red-500">{{ errors.ngayNhap }}</span>
-      </div>
-    </div>
-    <div class="gap-4 grid grid-cols-1 sm:grid-cols-2 mt-5">
-      <div class="min-w-40">
         <label for="soLuong" class="block font-bold mb-3 required">Số lượng</label>
         <InputNumber id="soLuong" v-model="soLuong" :invalid="errors.soLuong != null" class="h-[42.72px]" size="large"
           fluid placeholder="Nhập số lượng" />
         <span class="text-red-500">{{ errors.soLuong }}</span>
       </div>
+
+    </div>
+    <div class="gap-4 grid grid-cols-1 sm:grid-cols-2 mt-5">
       <div class="min-w-40">
         <label for="giaNhap" class="block font-bold mb-3 required">Giá nhập</label>
         <InputNumber v-model="giaNhap" fluid input-id="giaNhap" placeholder="Nhập giá nhập" mode="currency"
           currency="VND" locale="vi-VN" :invalid="errors.giaNhap != null" />
         <span class="text-red-500">{{ errors.giaNhap }}</span>
+      </div>
+      <div class="min-w-40">
+        <label for="giaBan" class="block font-bold mb-3 required">Giá bán</label>
+        <InputNumber v-model="giaBan" fluid input-id="giaBan" placeholder="Nhập giá nhập" mode="currency"
+          currency="VND" locale="vi-VN" :invalid="errors.giaBan != null" />
+        <span class="text-red-500">{{ errors.giaBan }}</span>
       </div>
     </div>
     <!-- end form -->
@@ -145,38 +126,30 @@ const schema = yup.object({
     .number()
     .required('Vui lòng nhập giá nhập!')
     .min(0, 'Không được nhập số âm'),
+  giaBan: yup
+    .number()
+    .required('Vui lòng nhập giá nhập!')
+    .min(0, 'Không được nhập số âm'),
 });
 const { defineField, handleSubmit, errors, resetForm } = useForm({
   validationSchema: schema,
 });
 // const [id] = defineField('id');
 // const [maPhuTung] = defineField('maPhuTung');
-// const [tenPhuTung] = defineField('tenPhuTung');
+const [tenPhuTung] = defineField('tenPhuTung');
 const [ngaySanXuat] = defineField('ngaySanXuat');
 const [hanSuDung] = defineField('hanSuDung');
 const [ngayNhap] = defineField('ngayNhap');
 const [soLuong] = defineField('soLuong');
 const [giaNhap] = defineField('giaNhap');
+const [giaBan] = defineField('giaBan');
 const onSubmit = handleSubmit(() => {
   console.log('onSubmit');
 });
 const listLoaiHang = [
-  { id: 1, maPhuTung: 'PT001', tenPhuTung: 'Bộ lọc dầu' },
-  { id: 2, maPhuTung: 'PT002', tenPhuTung: 'Dây curoa' },
+  { id: 1, tenPhuTung: 'PT001 - Bộ lọc dầu' },
+  { id: 2, tenPhuTung: 'PT002 - Dây curoa' },
 ];
-// State cho giá trị được chọn
-const selectedMaPhuTung = ref(null);
-const selectedTenPhuTung = ref(null);
 
-// Cập nhật tên phụ tùng khi chọn mã phụ tùng
-const updateTenPhuTung = () => {
-  const selectedItem = listLoaiHang.find(item => item.id === selectedMaPhuTung.value);
-  selectedTenPhuTung.value = selectedItem ? selectedItem.id : null;
-};
 
-// Cập nhật mã phụ tùng khi chọn tên phụ tùng
-const updateMaPhuTung = () => {
-  const selectedItem = listLoaiHang.find(item => item.id === selectedTenPhuTung.value);
-  selectedMaPhuTung.value = selectedItem ? selectedItem.id : null;
-};
 </script>
