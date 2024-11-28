@@ -5,7 +5,8 @@
       <div class="col-span-1">
         <div class="flex justify-between ">
           <h5 class="font-bold mb-1 text-xl" style="line-height: 2; color: #0b5ee7">I. Thông tin khách hàng</h5>
-          <Button class="mr-10" label="Xem trước" icon="pi pi-spinner-dotted" severity="info" @click="onOpenShowModel" />
+          <Button class="mr-10" label="Xem trước" icon="pi pi-spinner-dotted" severity="info"
+            @click="onOpenShowModel" />
         </div>
         <p>Tên khách hàng: <span class="font-bold">{{ customerInfo.tenKhachHang }}</span></p>
 
@@ -26,15 +27,18 @@
         <p>Kinh độ: <span class="font-bold">{{ customerInfo.kinhDo }}</span></p>
 
         <p>Vĩ độ: <span class="font-bold">{{ customerInfo.viDo }}</span></p>
-        
+
         <p>Ghi chú: <span class="font-bold">{{ customerInfo.ghiChu }}</span></p>
       </div>
       <div class="col-span-1">
         <div class="flex justify-content-between">
-          <h5 class="font-bold m-1 text-xl mb-2" style="line-height: 2; color: #0b5ee7">II. Thông tin phụ tùng</h5>
+          <h5 class="font-bold m-1 text-xl mb-2" style="line-height: 2; color: #0b5ee7">II. Thông tin sửa chữa</h5>
+        </div>
+        <div>
+          <h6 class="font-bold m-1 text-md mb-2">1. Phụ tùng thay thế </h6>
         </div>
         <DataTable :value="customerInfo.phuTungThay" tableStyle="min-width: 50rem;  " showGridlines>
-          <Column class="text-center" body-style="text-align: center">
+          <Column class="text-center" body-style="text-align: center; width: 12px">
             <template #header>
               <span class="m-auto"><b>STT</b></span>
             </template>
@@ -43,6 +47,7 @@
             </template>
           </Column>
           <Column field="tenPhuTung" header="Tên phụ tùng" style="min-width: 10rem"></Column>
+          <Column field="donVi" header="Đơn vị"></Column>
           <Column field="soLuong" header="Số lượng"></Column>
           <Column field="giaBan" header="Giá bán">
             <template #body="slotProps">
@@ -50,14 +55,34 @@
             </template>
           </Column>
         </DataTable>
-        <p class="mt-2">Tiền công: <span class="font-bold ">{{ customerInfo.tienCong }}</span></p>
-        <p>Chi phí phát sinh: <span class="font-bold">{{ customerInfo.chiPhiPhatSinh }}</span></p>
-        <p>Tổng chi phí: <span class="font-bold">{{ customerInfo.tongChiPhi }}</span></p>
-        <p>Tình trạng thanh toán: <span class="font-bold">{{ customerInfo.daThanhToan ? "Đã thanh toán" : "Chưa thanh toán"}}</span></p>
+        <h6 class="font-bold m-1 text-md mt-5">2. Tiền công sửa chữa </h6>
+        <DataTable :value="customerInfo.tienCong" tableStyle="min-width: 50rem;  " showGridlines>
+          <Column class="text-center" body-style="text-align: center; width: 12px">
+            <template #header>
+              <span class="m-auto"><b>STT</b></span>
+            </template>
+            <template #body="slotPros">
+              {{ getRowSTT(slotPros.index) }}
+            </template>
+          </Column>
+          <Column field="tenTienCong" header="Nội dung sửa chữa" style="min-width: 10rem"></Column>
+          <Column field="giaCong" header="Đơn giá">
+            <template #body="slotProps">
+              {{ slotProps.data.giaCong.toLocaleString('vi-VN') }} VNĐ
+            </template>
+          </Column>
+        </DataTable>
+        <div class="mt-5 text-md">
+          <p>Tổng chi phí: <span class="font-bold">{{ customerInfo.tongChiPhi.toLocaleString("vi-VN") }} VNĐ</span></p>
+          <p>Tình trạng thanh toán:
+            <span class="font-bold">
+              {{ customerInfo.daThanhToan ? "Đã thanh toán" : "Chưa thanh toán" }}
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   </Dialog>
-
   <KhachHangDialogShowPrintKhachHang :is-visible="isOpenShowModel" @hide-modal="isOpenShowModel = false" />
 </template>
 <script lang="ts" setup>
@@ -89,27 +114,47 @@ const customerInfo = reactive(
     phuTungThay: [
       {
         tenPhuTung: 'PT-001 - Lọc gió',
+        donVi: "Lít",
         soLuong: 2,
         giaBan: 200000,
       },
       {
         tenPhuTung: 'PT-002 - Lọc dầu',
+        donVi: "Can",
         soLuong: 1,
         giaBan: 200000,
       },
       {
         tenPhuTung: 'PT-003 - Lốp',
+        donVi: "Thùng",
         soLuong: 5,
         giaBan: 500000,
       },
       {
         tenPhuTung: 'PT-004 - Gương',
+        donVi: "Cái",
         soLuong: 2,
         giaBan: 150000,
       }
     ],
-    tienCong: 50000,
-    chiPhiPhatSinh: 10000,
+    tienCong: [
+      {
+        tenTienCong: 'Công số 1',
+        giaCong: 2000000,
+      },
+      {
+        tenTienCong: 'Công số 2',
+        giaCong: 2600000,
+      },
+      {
+        tenTienCong: 'Công số 3',
+        giaCong: 3500000,
+      },
+      {
+        tenTienCong: 'Công số 4',
+        giaCong: 650000,
+      },
+    ],
     tongChiPhi: 900000,
     daThanhToan: false,
     ghiChu: "Đã kiểm tra"

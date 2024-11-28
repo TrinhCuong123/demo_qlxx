@@ -9,7 +9,7 @@
         <div id="printSection" class="m-5">
           <div class="grid grid-cols-3">
             <div class="col-span-1">
-              <img src="assets/fonts/qr.png" alt="" width="90px" height="90px">
+              <img src="assets/fonts/qr.jpg" alt="" width="90px" height="90px">
               <div class="font-bold mt-2">
                 <div>
                   STK:4510428362 <br />
@@ -19,7 +19,7 @@
             </div>
             <div class="col-span-2">
               <div class="flex flex-col items-center justify-center text-center h-full">
-                <div class="font-bold text-2xl ">
+                <div class="font-bold text-[32px] ">
                   GARA Ô TÔ TIẾN NGA
                 </div>
                 <div class="font-normal">
@@ -29,13 +29,13 @@
                   ĐT: (Tiến) 0333 271 688
                 </div>
               </div>
-              <div class="flex justify-end italic text-sm">
+              <div class="flex justify-end italic text-[18px]">
                 Ngày {{ data.getDay() }} tháng {{ data.getMonth() }} năm {{ data.getFullYear() }}
               </div>
             </div>
           </div>
           <div class="flex items-center justify-center text-center mt-8 mb-6">
-            <div class="font-bold text-3xl">
+            <div class="font-bold text-[32px]">
               HÓA ĐƠN THANH TOÁN
             </div>
           </div>
@@ -49,42 +49,60 @@
               <div class=" text-[20px]">Số km: {{ customerInfo.soKm.toLocaleString('vi-VN') }} km</div>
             </div>
           </div>
-          <div class="flex justify-center">
-            <table class="styled-table">
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Tên Phụ Tùng</th>
-                  <th>Số Lượng</th>
-                  <th>Giá Bán</th>
-                  <th>Thành tiền</th>
-                </tr>
-              </thead>
-              <tbody class="text-center">
-                <tr v-for="(item, index) in customerInfo.phuTungThay" :key="index">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ item.tenPhuTung }}</td>
-                  <td>{{ item.soLuong }}</td>
-                  <td>{{ item.giaBan.toLocaleString('vi-VN') }} VND</td>
-                  <td>{{ (item.giaBan * item.soLuong).toLocaleString('vi-VN') }} VND</td>
-                </tr>
-              </tbody>
-            </table>
+          <div>
+            <div class="text-[18px] font-bold mt-5 mb-3">
+              1. Phụ tùng thay thế
+            </div>
+            <div class="flex justify-center">
+              <table class="styled-table">
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Tên Phụ Tùng</th>
+                    <th>Số Lượng</th>
+                    <th>Giá Bán</th>
+                    <th>Thành tiền</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr v-for="(item, index) in customerInfo.phuTungThay" :key="index">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ item.tenPhuTung }}</td>
+                    <td>{{ item.soLuong }}</td>
+                    <td>{{ item.giaBan.toLocaleString('vi-VN') }} VND</td>
+                    <td>{{ (item.giaBan * item.soLuong).toLocaleString('vi-VN') }} VND</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div></div>
-          <div class="flex flex-col items-end mx-6">
-            <div class="flex justify-between w-full">
-              <span>Tiền công:</span>
-              <span>{{ customerInfo.tienCong.toLocaleString('vi-VN') }} VND</span>
+
+          <div>
+            <div class="text-[18px] font-bold mt-5 mb-3">
+              2. Tiền công sửa chữa
             </div>
-            <div class="flex justify-between w-full">
-              <div class="flex justify-center items-center">
-                <span>Chi phí phát sinh</span>
-                <span class="text-[14px] italic ml-1"> ({{ customerInfo.ghiChu }}):</span>
-              </div>
-              <span>{{ customerInfo.chiPhiPhatSinh.toLocaleString('vi-VN') }} VND</span>
+            <div class="flex justify-center">
+              <table class="styled-table">
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Nồi dung sửa chữa</th>
+                    <th>Đơn giá</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr v-for="(item, index) in customerInfo.tienCong" :key="index">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ item.tenTienCong }}</td>
+                    <td>{{ item.giaCong.toLocaleString('vi-VN') }} VND</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="flex justify-between w-full font-bold text-xl">
+          </div>
+
+          <div class="flex flex-col items-end m-6">
+            <div class="flex justify-between w-full font-bold text-2xl">
               <span>Tổng:</span>
               <span>{{ customerInfo.tongChiPhi.toLocaleString('vi-VN') }} VND</span>
             </div>
@@ -137,10 +155,25 @@ const customerInfo = reactive(
         giaBan: 150000,
       }
     ],
-    tienCong: 50000,
-    chiPhiPhatSinh: 10000,
+    tienCong: [
+      {
+        tenTienCong: 'Công số 1',
+        giaCong: 2000000,
+      },
+      {
+        tenTienCong: 'Công số 2',
+        giaCong: 2600000,
+      },
+      {
+        tenTienCong: 'Công số 3',
+        giaCong: 3500000,
+      },
+      {
+        tenTienCong: 'Công số 4',
+        giaCong: 650000,
+      },
+    ],
     tongChiPhi: 900000,
-    ghiChu: "Tiền nhân công và tiền hàng tăng",
     daThanhToan: false,
   },
 );
@@ -195,11 +228,26 @@ function printById(elementId: string) {
   `);
   doc.close();
 
-  // Thực hiện in và xóa iframe sau đó
-  printWindow.contentWindow.focus();
-  printWindow.contentWindow.print();
-  document.body.removeChild(printWindow); // Xóa iframe sau khi in
+  // Đảm bảo tất cả ảnh trong iframe được tải trước khi in
+  const images = printWindow.contentWindow.document.images;
+  const imageLoadPromises = Array.from(images).map((img) => {
+    return new Promise((resolve) => {
+      if (img.complete) {
+        resolve(null); // Ảnh đã tải xong
+      } else {
+        img.onload = img.onerror = () => resolve(null); // Đợi tải xong
+      }
+    });
+  });
+
+  Promise.all(imageLoadPromises).then(() => {
+    // Thực hiện in và xóa iframe sau đó
+    printWindow.contentWindow.focus();
+    printWindow.contentWindow.print();
+    document.body.removeChild(printWindow); // Xóa iframe sau khi in
+  });
 }
+
 
 
 
@@ -209,11 +257,10 @@ function printById(elementId: string) {
 .styled-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 25px 0;
   font-size: 18px;
   font-family: 'Arial', sans-serif;
   text-align: left;
-  border-color: #000000;
+  border: 1px solid #000; /* Đường viền bao quanh bảng */
 }
 
 .styled-table thead tr {
@@ -225,24 +272,21 @@ function printById(elementId: string) {
 
 .styled-table th,
 .styled-table td {
-  border: 1px solid #dddddd;
+  border: 1px solid #000; /* Đường viền ô trong bảng */
   padding: 12px 15px;
 }
 
 .styled-table tbody tr {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #000; /* Đường viền giữa các hàng */
 }
 
-/* .styled-table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
-} */
-
 .styled-table tbody tr:last-of-type {
-  border-bottom: 2px solid #ffffff;
+  border-bottom: 1px solid #000; /* Đường viền cuối bảng */
 }
 
 .styled-table tbody tr:hover {
   background-color: #f1f1f1;
   cursor: pointer;
 }
+
 </style>

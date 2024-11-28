@@ -149,7 +149,7 @@
                 </div>
               </div>
               <!-- Nút thêm phụ tùng -->
-              <div class="grid grid-cols-2 gap-4 my-5">
+              <!-- <div class="grid grid-cols-2 gap-4 my-5">
                 <div class="col-span-1">
                   <label class="block font-bold mb-3">Tiền công</label>
                   <InputNumber v-model="tienCong" class="w-full" fluid input-id="tienCong" placeholder="Nhập tiền công"
@@ -163,6 +163,27 @@
                     :invalid="errors.chiPhiPhatSinh != null" />
                   <span class="text-red-500">{{ errors.chiPhiPhatSinh }}</span>
                 </div>
+              </div> -->
+              <div class="flex justify-between items-center gap-4 mt-6 mb-2">
+                <h6 class="uppercase text[#0b5ee7] font-bold m-0" style="color: #0b5ee7">
+                  Tiền công sữa chữa
+                </h6>
+                <Button class="bg-blue-500 text-white font-bold py-2 px-4 rounded " @click="themTienCong">
+                  Thêm tiền công
+                </Button>
+              </div>
+
+              <div v-for="(tienCong, index) in tienCongs" :key="index" class="grid grid-cols-2 gap-4 mb-1">
+                <div class="min-w-40">
+                  <label v-if="index === 0" for="tenTienCong" class="block font-bold mb-3">Nội dung tiền công</label>
+                  <InputText id="tenTienCong" v-model="tienCong.tenTienCong" placeholder="Chọn Nội dung tiền công" size="large"
+                    class="mr-2 w-full h-[42.72px]" />
+                </div>
+                <div class="col-span-1">
+                  <label v-if="index === 0" class="block font-bold mb-3">Đơn giá</label>
+                  <InputNumber v-model="tienCong.giaCong" placeholder="Nhập Đơn giá" class="w-full" fluid input-id="tienCong"
+                   mode="currency" currency="VND" locale="vi-VN" />
+                </div>
               </div>
             </div>
             <div class="border-t border-gray-300">
@@ -171,7 +192,7 @@
                   <div class="flex items-center text-xl">
                     <label class="block font-bold mr-3">Tổng tiền thanh toán</label>
                     <div>
-                      {{ tongTienSuaXe }} &#8363;
+                      {{ tongTienSuaXe.toLocaleString("vi-VN") }} &#8363;
                     </div>
                   </div>
                 </div>
@@ -255,6 +276,13 @@ const close = () => {
       giaBan: 0,
     },
   ];
+  tienCongs.value = ref([
+  {
+    tenTienCong: '',
+    giaCong: 0,
+  },
+]);
+
 }
 const onOpenMap = () => {
   visible_map.value = true;
@@ -286,17 +314,21 @@ const [soVin] = defineField('soVin');
 const [ngaySua] = defineField('ngaySua');
 const [kinhDo] = defineField('kinhDo');
 const [viDo] = defineField('viDo');
-const [tienCong] = defineField('tienCong');
-const [chiPhiPhatSinh] = defineField('chiPhiPhatSinh');
+// const [tienCong] = defineField('tienCong');
+// const [chiPhiPhatSinh] = defineField('chiPhiPhatSinh');
 const [daThanhToan] = defineField('daThanhToan');
 const [ghiChu] = defineField('ghiChu');
 
 const tongTienSuaXe = computed(() => {
   let sumHangHoa = 0
+  let sumTienCong = 0
   for (var i = 0; i < phuTungs.value.length; i++) {
     sumHangHoa += Number(phuTungs.value[i].soLuong) * Number(phuTungs.value[i].giaBan)
   }
-  return (sumHangHoa + Number(tienCong.value) + Number(chiPhiPhatSinh.value) || 0);
+  for (var j = 0; j < tienCongs.value.length; j++) {
+    sumTienCong += Number(tienCongs.value[j].giaCong)
+  }
+  return ((sumHangHoa + sumTienCong) || 0);
 });
 const phuTungs = ref([
   {
@@ -315,7 +347,20 @@ const themPhuTung = () => {
     soLuong: 0,
     giaBan: 0,
   });
-  console.log(phuTungs.value)
+};
+const tienCongs = ref([
+  {
+    tenTienCong: '',
+    giaCong: 0,
+  },
+]);
+
+// Hàm thêm phụ tùng mới
+const themTienCong = () => {
+  tienCongs.value.push({
+    tenTienCong: '',
+    giaCong: 0,
+  });
 };
 const onSubmit = handleSubmit(() => {
   console.log('onSubmit');
