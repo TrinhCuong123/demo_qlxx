@@ -23,7 +23,7 @@
       </template>
     </Toolbar>
     <div class="m-4" style="padding-bottom: 16px;">
-      <DataTable :value="listHangNhap" tableStyle="min-width: 50rem;" showGridlines>
+      <DataTable :value="data" tableStyle="min-width: 50rem;" showGridlines>
         <Column class="text-center" body-style="text-align: center">
           <template #header>
             <span class="m-auto"><b>STT</b></span>
@@ -32,12 +32,31 @@
             {{ getRowSTT(slotPros.index) }}
           </template>
         </Column>
-        <Column field="maPhuTung" header="Doanh thu tháng"></Column>
-        <Column field="tenPhuTung" header="Tổng chi phí"></Column>
-        <Column field="ngaySanXuat" header="Tổng doanh thu"></Column>
-        <Column field="ngayNhap" header="Tổng dư nợ"></Column>
-        <Column field="hanSuDung" header="Tổng lợi nhuận"></Column>
-        <Column field="soLuong" header="Tổng thu nhập"></Column>
+        <Column field="tenDoanhThu" header="Doanh thu tháng" className="text-sm">
+          <template #body="{ data }">
+            <NuxtLink class="font-bold text-xl text-cyan-800" :to="`/doanh-thu/${data.id}`">{{ data.tenDoanhThu
+              }}</NuxtLink>
+          </template>
+        </Column>
+        <Column field="tongChiPhi" header="Tổng chi phí">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.tongChiPhi.toLocaleString('vi-VN') }} &#8363;</span>
+          </template>
+        </Column>
+        <Column field="tongDoanhThu" header="Tổng doanh thu">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.tongDoanhThu.toLocaleString('vi-VN') }} &#8363;</span>
+          </template>
+        </Column>
+        <Column field="tongDuNo" header="Tổng dư nợ">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.tongDuNo.toLocaleString('vi-VN') }} &#8363;</span>
+          </template>
+        </Column>
+        <Column field="tongLoiNhuan" header="Tổng lợi nhuận">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.tongLoiNhuan.toLocaleString('vi-VN') }} &#8363;</span>
+          </template></Column>
         <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
           <template #header>
             <span class="m-auto"><b>Thao tác</b></span>
@@ -45,7 +64,7 @@
           <template #body="slotProps">
             <div class="text-center">
               <Button v-tooltip="'Xem'" icon="pi pi-eye" outlined rounded severity="info"
-                class="mr-2" @click="onOpenShowModel" />
+                class="mr-2"  />
             </div>
           </template>
         </Column>
@@ -112,27 +131,47 @@ const getRowSTT = (index) => {
   return index + 1;
 }
 
-
-const listHangNhap = [
+const data = [
   {
     id: 1,
-    maPhuTung: 'PT001',
-    tenPhuTung: 'Bộ lọc dầu',
-    ngaySanXuat: '2023-01-15',
-    hanSuDung: '2025-01-15',
-    ngayNhap: '2023-02-01',
-    soLuong: 100,
-    giaNhap: '50.000'
+    tenDoanhThu: "Doanh thu tháng 9",
+    tongChiPhi: 50000000,
+    tongDoanhThu: 120000000,
+    tongDuNo: 20000000,
+    tongLoiNhuan: 70000000
   },
   {
     id: 2,
-    maPhuTung: 'PT002',
-    tenPhuTung: 'Dây curoa',
-    ngaySanXuat: '2023-03-20',
-    hanSuDung: '2026-03-20',
-    ngayNhap: '2023-04-05',
-    soLuong: 200,
-    giaNhap: '75.000'
+    tenDoanhThu: "Doanh thu tháng 10",
+    tongChiPhi: 80000000,
+    tongDoanhThu: 150000000,
+    tongDuNo: 30000000,
+    tongLoiNhuan: 40000000
+  },
+  {
+    id: 3,
+    tenDoanhThu: "Doanh thu tháng 11",
+    tongChiPhi: 60000000,
+    tongDoanhThu: 100000000,
+    tongDuNo: 15000000,
+    tongLoiNhuan: 25000000
+  },
+  {
+    id: 4,
+    tenDoanhThu: "Doanh thu tháng 12",
+    tongChiPhi: 70000000,
+    tongDoanhThu: 170000000,
+    tongDuNo: 25000000,
+    tongLoiNhuan: 75000000
+  },
+  {
+    id: 5,
+    tenDoanhThu: "Doanh thu tháng 1",
+    tongChiPhi: 55000000,
+    tongDoanhThu: 130000000,
+    tongDuNo: 10000000,
+    tongLoiNhuan: 65000000
   }
 ];
+
 </script>

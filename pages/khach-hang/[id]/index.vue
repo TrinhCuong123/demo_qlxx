@@ -22,7 +22,9 @@
         </div>
       </template>
     </Toolbar>
-    <div style="display: flex; justify-content: flex-end;">
+    <div style="display: flex; justify-content:space-between;">
+      <Button label="Quay lại" icon="pi pi-arrow-left" severity="danger" class="flex ml-4 justify-items-end"
+        title="Quay lại" @click="onBack" />
       <Button label="Thêm mới" icon="pi pi-plus" class="flex mr-4 justify-items-end" title="Thêm mới"
         @click="onOpenModal" />
     </div>
@@ -37,23 +39,28 @@
             {{ getRowSTT(slotPros.index) }}
           </template>
         </Column>
-        <Column field="tenKhachHang" header="Tên khách hàng" style="min-width: 10rem">
-          <template #body="{ data }">
-            <NuxtLink class="font-bold text-xl text-cyan-800" :to="`/khach-hang/${data.id}`">{{ data.tenKhachHang
-              }}</NuxtLink>
+        <Column field="ngaySua" header="Ngày sửa"></Column>
+        <Column field="tongChiPhi" header="Tổng chi phí">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.tongChiPhi }} &#8363;</span>
           </template>
         </Column>
-        <Column field="dien_thoai" header="Điện thoại"></Column>
-        <Column field="diaChi" header="Địa chỉ"></Column>
-        <Column field="thuongHieu" header="Thương hiệu"></Column>
-        <Column field="bienSoXe" header="Biển số xe"></Column>
-        <Column field="soVin" header="Số vin"></Column>
+        <Column header="Trạng thái" field="lockout" :filter-menu-style="{ width: '14rem' }" style="min-width: 10rem">
+          <template #body="{ data }">
+            <div>
+              <Badge v-if="data.daThanhToan" :value="statePay.Active" severity="success" class="text-md font-medium" />
+              <Badge v-else :value="statePay.Inactive" severity="danger" class="text-md font-medium" />
+            </div>
+          </template>
+        </Column>
         <Column :exportable="false" style="min-width: 9rem" :frozen="true" align-frozen="right">
           <template #header>
             <span class="m-auto"><b>Thao tác</b></span>
           </template>
           <template #body="slotProps">
             <div class="text-center">
+              <Button v-tooltip="'Xem'" icon="pi pi-eye" outlined rounded severity="info"
+                class="mr-2" @click="onOpenShowModel" />
               <Button v-tooltip="'Sửa'" icon="pi pi-pencil" outlined rounded severity="success"
                 class="mr-2" title="chỉnh sửa" @click="onOpenEditModal" />
               <Button v-tooltip="'Xóa'" icon="pi pi-trash" outlined rounded severity="danger"
@@ -64,8 +71,8 @@
       </DataTable>
     </div>
   </div>
-  <KhachHangDialogCreateKhachHang :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
-  <KhachHangDialogEditKhachHang :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
+  <KhachHangDialogCreateDetailKhachHang :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
+  <KhachHangDialogEditDetailKhachHang :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
   <KhachHangDialogShowInfoKhachHang :is-visible="isOpenShowModel" @hide-modal="isOpenShowModel = false" />
 </template>
 <script setup lang="ts">
@@ -74,9 +81,11 @@ import { ref, reactive } from 'vue';
 import 'primeicons/primeicons.css'
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
+import { useRouter } from 'vue-router';
 
-setTitleHeader("Khách hàng");
+setTitleHeader(`Lịch sử sửa chữa`);
 
+const router = useRouter();
 const confirm = useConfirm();
 const toast = useToast();
 const keyWords = ref();
@@ -134,11 +143,15 @@ const getRowSTT = (index: number) => {
   return index + 1;
 }
 
+const onBack = () => {
+  router.push('/khach-hang');
+};
+
 const customerList = reactive([
   {
     id: 1,
     tenKhachHang: 'Nguyễn Văn A',
-    diaChi: 'Hà Nội, Việt Nam',
+    dia_chi: 'Hà Nội, Việt Nam',
     dien_thoai: '0123456789',
     thuongHieu: 'Honda',
     bienSoXe: '29A-12345',
@@ -167,7 +180,7 @@ const customerList = reactive([
   {
     id: 2,
     tenKhachHang: 'Trần Thị B',
-    diaChi: 'Đà Nẵng, Việt Nam',
+    dia_chi: 'Đà Nẵng, Việt Nam',
     dien_thoai: '0934567890',
     thuongHieu: 'Toyota',
     bienSoXe: '43C-56789',
@@ -196,7 +209,7 @@ const customerList = reactive([
   {
     id: 3,
     tenKhachHang: 'Lê Văn C',
-    diaChi: 'Hồ Chí Minh, Việt Nam',
+    dia_chi: 'Hồ Chí Minh, Việt Nam',
     dien_thoai: '0987654321',
     thuongHieu: 'Ford',
     bienSoXe: '51F-67890',
@@ -225,7 +238,7 @@ const customerList = reactive([
   {
     id: 4,
     tenKhachHang: 'Phạm Thị D',
-    diaChi: 'Cần Thơ, Việt Nam',
+    dia_chi: 'Cần Thơ, Việt Nam',
     dien_thoai: '0912345678',
     thuongHieu: 'Mazda',
     bienSoXe: '65B-98765',
@@ -249,7 +262,7 @@ const customerList = reactive([
   {
     id: 5,
     tenKhachHang: 'Hoàng Văn E',
-    diaChi: 'Hải Phòng, Việt Nam',
+    dia_chi: 'Hải Phòng, Việt Nam',
     dien_thoai: '0909876543',
     thuongHieu: 'Kia',
     bienSoXe: '15A-24680',

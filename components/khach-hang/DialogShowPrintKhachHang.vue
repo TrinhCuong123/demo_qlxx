@@ -8,8 +8,8 @@
       <div class="border border-black">
         <div id="printSection" class="m-5">
           <div class="grid grid-cols-3">
-            <div class="col-span-1">
-              <img src="assets/fonts/qr.jpg" alt="" width="90px" height="90px">
+            <div class="col-span-1 ml-5">
+              <img src="assets/fonts/qr.jpg" alt="" width="90px" height="90px" class="m-5">
               <div class="font-bold mt-2">
                 <div>
                   STK:4510428362 <br />
@@ -18,7 +18,7 @@
               </div>
             </div>
             <div class="col-span-2">
-              <div class="flex flex-col items-center justify-center text-center h-full">
+              <div class="flex flex-col items-center justify-center text-center h-full ">
                 <div class="font-bold text-[32px] ">
                   GARA Ô TÔ TIẾN NGA
                 </div>
@@ -29,7 +29,7 @@
                   ĐT: (Tiến) 0333 271 688
                 </div>
               </div>
-              <div class="flex justify-end italic text-[18px]">
+              <div class="mr-5 flex justify-end italic text-[18px]">
                 Ngày {{ data.getDay() }} tháng {{ data.getMonth() }} năm {{ data.getFullYear() }}
               </div>
             </div>
@@ -86,7 +86,7 @@
                 <thead>
                   <tr>
                     <th>STT</th>
-                    <th>Nồi dung sửa chữa</th>
+                    <th>Nội dung sửa chữa</th>
                     <th>Đơn giá</th>
                   </tr>
                 </thead>
@@ -221,7 +221,7 @@ function printById(elementId: string) {
     <html>
       <head>
         <title>In Nội Dung</title>
-        ${styles} <!-- Nhúng toàn bộ style -->
+        ${styles} 
       </head>
       <body>${content}</body>
     </html>
@@ -247,9 +247,6 @@ function printById(elementId: string) {
     document.body.removeChild(printWindow); // Xóa iframe sau khi in
   });
 }
-
-
-
 
 </script>
 
