@@ -100,7 +100,13 @@
               </table>
             </div>
           </div>
-
+          <!-- <div class="m-3"> -->
+            <!-- <div class="w-full font-normal text-md"> -->
+              <!-- <span>Ghi chú: </span> -->
+              <!-- <span>{{ customerInfo.tongChiPhi.toLocaleString('vi-VN') }} VND</span> -->
+              <!-- <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro deserunt enim soluta, quibusdam commodi accusantium saepe ratione, unde ab officiis ad atque quisquam quaerat? Nobis ex unde dolorum non hic?</span>
+            </div>
+          </div> -->
           <div class="flex flex-col items-end m-6">
             <div class="flex justify-between w-full font-bold text-2xl">
               <span>Tổng:</span>

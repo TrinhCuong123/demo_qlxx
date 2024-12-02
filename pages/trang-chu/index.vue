@@ -166,13 +166,8 @@
               <!-- <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png" layer-type="base" name="OpenStreetMap" /> -->
               <LTileLayer url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" attribution="&copy; Google Maps"
                 layer-type="base" name="Bản đồ vệ tinh Google" />
-
-              <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png"
-                attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
+              <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png" attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
                 layer-type="base" name="Bản đồ đường phố" />
-
-
-              <!-- Lớp điều khiển Layers Control -->
               <LControlLayers position="topright" />
             </LMap>
           </ClientOnly>
@@ -212,7 +207,8 @@
         <div>
           <TrangChuTongDuNo :is-visible="isVisible" @hide-modal="isVisible = false" />
         </div>
-        <div class="mt-3 mr-3 font-bold text-sm flex justify-end italic underline" style="cursor: pointer; color: #12682A">
+        <div class="mt-3 mr-3 font-bold text-sm flex justify-end italic underline"
+          style="cursor: pointer; color: #12682A">
           <a @click="isOpenModel">Xem thêm</a>
         </div>
       </div>
@@ -249,7 +245,6 @@ const isOpenModel = () => {
 }
 
 const setChartData = () => {
-  const documentStyle = getComputedStyle(document.documentElement);
 
   return {
     labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
@@ -320,7 +315,6 @@ const setChartOptions = () => {
 }
 
 const setChartDataPie = () => {
-  const documentStyle = getComputedStyle(document.body);
 
   return {
     labels: ['Chi phí háng hóa', 'Doanh thu sửa xe', 'Lợi nhuận'],

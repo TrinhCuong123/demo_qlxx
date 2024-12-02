@@ -9,8 +9,6 @@
             </InputIcon>
             <InputText v-model="keyWords" placeholder="Tìm kiếm" class="w-full" />
           </IconField>
-          <Select v-model="hangNhap" :options="listHangNhap" option-label="tenPhuTung" option-value="id"
-            placeholder="Chọn loại hàng" class="w-48" show-clear />
         </div>
       </template>
 

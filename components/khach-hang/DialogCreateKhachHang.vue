@@ -51,6 +51,10 @@
               <span class="text-red-500">{{ errors.soVin }}</span>
             </div>
           </div>
+          <div>
+            <label class="block font-bold mb-3 required">Ghi chú</label>
+            <Textarea v-model="ghiChu" rows="5" class="w-full"/>
+          </div>
           <div class="grid grid-cols-3 gap-4 my-4">
             <div class="col-span-1">
               <label class="block font-bold mb-3 required">Kinh độ</label>
@@ -161,7 +165,7 @@ const [dien_thoai] = defineField('dien_thoai');
 const [thuongHieu] = defineField('thuongHieu');
 const [bienSoXe] = defineField('bienSoXe');
 const [soVin] = defineField('soVin');
-const [ngaySua] = defineField('ngaySua');
+const [ghiChu] = defineField('ghiChu');
 const [kinhDo] = defineField('kinhDo');
 const [viDo] = defineField('viDo');
 

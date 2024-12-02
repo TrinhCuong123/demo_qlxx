@@ -53,6 +53,10 @@
             <span>{{ slotProps.data.tongDuNo.toLocaleString('vi-VN') }} &#8363;</span>
           </template>
         </Column>
+        <Column field="tongLoiNhuan" header="Chi phí phát sinh">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.tongLoiNhuan.toLocaleString('vi-VN') }} &#8363;</span>
+          </template></Column>
         <Column field="tongLoiNhuan" header="Tổng lợi nhuận">
           <template #body="slotProps">
             <span>{{ slotProps.data.tongLoiNhuan.toLocaleString('vi-VN') }} &#8363;</span>
@@ -63,61 +67,27 @@
           </template>
           <template #body="slotProps">
             <div class="text-center">
-              <Button v-tooltip="'Xem'" icon="pi pi-eye" outlined rounded severity="info"
-                class="mr-2"  />
+              <Button v-tooltip="'Xem'" icon="pi pi-eye" outlined rounded severity="info" class="mr-2" @click="onOpenModal" />
             </div>
           </template>
         </Column>
       </DataTable>
     </div>
   </div>
-  <HangNhapDialogCreateHangNhap :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
-  <HangNhapDialogEditHangNhap :is-visible="isOpenEditModel" @hide-modal="isOpenEditModel = false" />
+  <DoanhThu :is-visible="isOpenModal" @hide-modal="isOpenModal = false" />
 </template>
 <script setup lang="ts">
 import { setTitleHeader } from '~/composables/globalTitleHeader';
 import { ref } from 'vue';
 import 'primeicons/primeicons.css'
-import { useConfirm } from "primevue/useconfirm";
-import { useToast } from "primevue/usetoast";
 
 setTitleHeader("Doanh thu");
-const confirm = useConfirm();
-const toast = useToast();
 const keyWords = ref();
 const hangNhap = ref();
 const isOpenModal = ref();
-const isOpenEditModel = ref();
 
-
-const onOpenEditModal = () => {
-  isOpenEditModel.value = true;
-};
 const onOpenModal = () => {
   isOpenModal.value = true;
-};
-
-
-const confirmDeleteProject = () => {
-  confirm.require({
-    message: 'Are you sure you want to proceed?',
-    header: 'Confirmation',
-    icon: 'pi pi-exclamation-triangle',
-    rejectProps: {
-      label: 'Cancel',
-      severity: 'secondary',
-      outlined: true
-    },
-    acceptProps: {
-      label: 'Save'
-    },
-    accept: () => {
-      toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-    },
-    reject: () => {
-      toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-    }
-  });
 };
 
 const timKiem = () => {
@@ -127,7 +97,7 @@ const clearFilter = () => {
   keyWords.value = ''
   hangNhap.value = null
 }
-const getRowSTT = (index) => {
+const getRowSTT = (index: number) => {
   return index + 1;
 }
 

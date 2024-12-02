@@ -73,13 +73,12 @@
               <Button icon="pi pi-send" class="custom-button" label="Chọn ví trí trên bản đồ" @click="onOpenMap" />
               <Dialog v-model:visible="visible_map" modal header="Chọn vị trí"
                 :close-on-escape="closeEscapeKeyModalMap">
-                <div class="w-80 h-[500px] sm:w-[900px] sm:h-[600px] m-2">
+                <div class="w-80 h-[600px] sm:w-[900px] sm:h-[650px] m-2" >
                   <ClientOnly>
-                    <LMap ref="map" :options="{ attributionControl: false }" :zoom="6"
-                      :center="[viDo ?? 17.175763720046184, kinhDo ?? 106.69921875000001]" :use-global-leaflet="false">
+                    <LMap ref="map" :options="{ attributionControl: false }" :zoom="5.5"
+                      :center="[viDo ?? 16.675763720046184, kinhDo ?? 106.69921875000000]" :use-global-leaflet="false">
                       <LTileLayer url="https://tiles.gisgo.vn/base/{z}/{x}/{y}.png" layer-type="base"
                         name="OpenStreetMap" />
-                      <!-- <LMarker v-if="lat != null && lon" :lat-lng="[lat, lon]" draggable /> -->
                     </LMap>
                   </ClientOnly>
                 </div>
