@@ -18,12 +18,12 @@
                 d="M28.1521 34.5029C35.556 34.5029 41.5579 28.4951 41.5579 21.084C41.5579 13.673 35.556 7.66513 28.1521 7.66513C20.7483 7.66513 14.7463 13.673 14.7463 21.084C14.7463 28.4951 20.7483 34.5029 28.1521 34.5029Z"
                 stroke="#62825D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-            <div style="margin-left: 8px;" class="text-sm font-bold">Lợi nhuận</div>
+            <div style="margin-left: 8px;" class="text-md font-bold">Lợi nhuận</div>
           </div>
           <div class="span-col-1 flex justify-between px-3">
             <div class="m-4 items-center">
               <div class="font-bold text-xl">50.000.000 &#8363;</div>
-              <div class=" text-sm">Thời điểm: Tháng 12</div>
+              <div class=" text-md">Thời điểm: Tháng 12</div>
             </div>
             <div class="items-center">
               <svg width="98" height="55" viewBox="0 0 98 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,12 +62,12 @@
               <path d="M26.6667 21C29.8083 22.7871 31.5302 22.7684 34.6667 21" stroke="#62825D" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-            <div style="margin-left: 8px;" class="text-sm font-bold">Chi phí hàng hóa</div>
+            <div style="margin-left: 8px;" class="text-md font-bold">Chi phí hàng hóa</div>
           </div>
           <div class="flex justify-between px-3">
             <div class="m-4 items-center">
               <div class="font-bold text-xl">25.000.000 &#8363;</div>
-              <div class=" text-sm">Thời điểm: Tháng 12</div>
+              <div class=" text-md">Thời điểm: Tháng 12</div>
             </div>
             <div class="items-center">
               <svg width="98" height="55" viewBox="0 0 98 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,13 +93,13 @@
               <path fill="#62825D"
                 d="M61.9 44.8c-1.1-3.4-4.7-5.3-8.1-4.4l-12.1 2.9c-.3-2.9-2.6-5.3-5.8-5.8H23.1c-1-1.5-2.6-2.5-4.6-2.5H8c-3.4 0-6.3 2.8-6.3 6.3v12.4C1.7 57.1 4.5 60 8 60h10.5c1.5 0 3-.6 4-1.7c.2-.2.3-.4.5-.6c2.9 1.4 6 2.2 9.1 2.2c1.9 0 3.8-.3 5.6-.8L53 54.5l4.3-1.3c1.7-.5 3.2-1.6 4.1-3.2c.9-1.5 1.1-3.4.5-5.2M19.3 54.9c-.2.2-.5.3-.8.3H8c-1 0-1.8-.8-1.8-1.8V41.1c0-1 .8-1.8 1.8-1.8h10.7c.5 0 .9.4.9.9v14c0 .4-.2.6-.3.7m38.2-7c-.3.5-.7.9-1.3 1l-4.4 1.3l-15.2 4.3c-3.9 1.1-8 .7-11.6-1.1l-.9-.5v-11h11.5c1.1.2 1.8 1 1.8 1.9v.5l-3.4.8c-1.2.3-2 1.5-1.7 2.7s1.5 2 2.7 1.7l20-4.8c1.1-.3 2.3.3 2.7 1.4c.1.6.1 1.3-.2 1.8M47.3 21.5h5.1c1.5 0 2.8 1.3 2.8 2.8s-1.3 2.8-2.8 2.8h-7.7c-1.2 0-2.3 1-2.3 2.3s1 2.3 2.3 2.3h2.8v.3c0 1.2 1 2.3 2.3 2.3s2.3-1 2.3-2.3v-.3h.3c4 0 7.3-3.3 7.3-7.3s-3.3-7.3-7.3-7.3h-5.1c-1.5 0-2.8-1.3-2.8-2.8s1.3-2.8 2.8-2.8h7.6c1.2 0 2.3-1 2.3-2.3s-1-2.3-2.3-2.3h-2.8v-.4c0-1.2-1-2.3-2.3-2.3s-2.3 1-2.3 2.3v.3h-.3c-4 0-7.3 3.3-7.3 7.3c.1 4.1 3.4 7.4 7.4 7.4" />
             </svg>
-            <div style="margin-left: 8px;" class="text-sm font-bold">Doanh thu sửa xe</div>
+            <div style="margin-left: 8px;" class="text-md font-bold">Doanh thu sửa xe</div>
           </div>
           <div>
             <div class="flex justify-between px-3">
               <div class="m-4 items-center">
                 <div class="font-bold text-xl">75.000.000 &#8363;</div>
-                <div class=" text-sm">Thời điểm: Tháng 12</div>
+                <div class=" text-md">Thời điểm: Tháng 12</div>
               </div>
               <div class="items-center">
                 <svg width="98" height="55" viewBox="0 0 98 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -126,15 +126,15 @@
           <div style=" align-items: center;" class="m-4 pl-3">
             <div class="flex gap-9 justify-center">
               <div>
-                <div class="text-sm opacity-80">Doanh thu cả năm</div>
+                <div class="text-md opacity-80">Doanh thu cả năm</div>
                 <div class="text-xl font-bold">500.000.000 &#8363;</div>
               </div>
               <div>
-                <div class="text-sm opacity-80">Chi phí cả năm</div>
+                <div class="text-md opacity-80">Chi phí cả năm</div>
                 <div class="text-xl font-bold">500.000.000 &#8363;</div>
               </div>
               <div>
-                <div class="text-sm opacity-80">Lợi nhuận cả năm</div>
+                <div class="text-md opacity-80">Lợi nhuận cả năm</div>
                 <div class="text-xl font-bold">500.000.000 &#8363;</div>
               </div>
             </div>
@@ -179,7 +179,7 @@
     <div class="col-span-1 bg-white rounded-lg w-full">
       <div style=" align-items: center;" class="m-4 pl-3">
         <div>
-          <div class="text-sm opacity-80">Lợi nhuận cả năm</div>
+          <div class="text-md opacity-80">Lợi nhuận cả năm</div>
           <div class="text-xl font-bold">200.000.000 &#8363;</div>
         </div>
         <div class="flex justify-center mt-3">
@@ -190,7 +190,7 @@
     <div class="col-span-1 bg-white rounded-lg w-full">
       <div style=" align-items: center;" class="m-4 pl-3">
         <div>
-          <div class="text-sm opacity-80">Doanh thu tháng 12</div>
+          <div class="text-md opacity-80">Doanh thu tháng 12</div>
           <div class="text-xl font-bold">50.000.000 &#8363;</div>
         </div>
         <div class="card flex justify-center">
@@ -201,13 +201,13 @@
     <div class="col-span-1 bg-white rounded-lg w-full">
       <div style=" align-items: center;" class="m-4 pl-3">
         <div>
-          <div class="text-sm opacity-80">Tổng dư nợ tháng 12</div>
+          <div class="text-md opacity-80">Tổng dư nợ tháng 12</div>
           <div class="text-xl font-bold">50.000.000 &#8363;</div>
         </div>
         <div>
           <TrangChuTongDuNo :is-visible="isVisible" @hide-modal="isVisible = false" />
         </div>
-        <div class="mt-3 mr-3 font-bold text-sm flex justify-end italic underline"
+        <div class="mt-3 mr-3 font-bold text-md flex justify-end italic underline"
           style="cursor: pointer; color: #12682A">
           <a @click="isOpenModel">Xem thêm</a>
         </div>

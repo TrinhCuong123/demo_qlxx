@@ -7,7 +7,8 @@ export default defineNuxtConfig({
     '@primevue/nuxt-module',
     '@nuxtjs/tailwindcss',
     '@nuxt/eslint',
-    '@nuxtjs/leaflet'
+    '@nuxtjs/leaflet',
+    '@nuxtjs/google-fonts'
   ],
   primevue: {
       options: {

@@ -29,7 +29,7 @@
               <div class="text-sm">Chào mừng đến với phần mềm quản lý xưởng xe</div>
             </div>
             <div v-else class="ml-5 py-5">
-              <div class="font-bold text-2xl">{{ titleHeader }}</div>
+              <div class="font-bold text-3xl">{{ titleHeader }}</div>
               <div class="text-sm">Phần mềm quản lý xưởng xe</div>
             </div>
           </div>

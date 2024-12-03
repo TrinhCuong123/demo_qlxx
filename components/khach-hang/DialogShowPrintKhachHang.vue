@@ -6,11 +6,11 @@
         <Button label="In thông tin" icon="pi pi-print" severity="info" @click="printById('printSection')" />
       </div>
       <div class="border border-black">
-        <div id="printSection" class="m-5">
+        <div id="printSection" class="m-3">
           <div class="grid grid-cols-3">
             <div class="col-span-1 ml-5">
-              <img src="assets/fonts/qr.jpg" alt="" width="90px" height="90px" class="m-5">
-              <div class="font-bold mt-2">
+              <img src="assets/fonts/qr.jpg" alt="" width="90px" height="90px" class="m-3">
+              <div class="font-bold mt-1">
                 <div>
                   STK:4510428362 <br />
                   Trịnh Ngọc Tiến - NH BIDV

@@ -1,6 +1,8 @@
 body {
   background-color: #F5F5F5;
-  font-family: 'Be Vietnam Pro', sans-serif;
+  /* font-family: 'Be Vietnam Pro', sans-serif; */
+  font-family: 'Be Vietnam Pro';
+  font-size: 18px;
   margin: 0; /* Loại bỏ khoảng cách mặc định */
   overflow-x: hidden; /* Ẩn thanh cuộn ngang */
 }

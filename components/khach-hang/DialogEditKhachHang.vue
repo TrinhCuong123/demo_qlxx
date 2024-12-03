@@ -177,7 +177,7 @@ const onSubmit = handleSubmit(() => {
 
 <style scoped>
 .custom-button {
-  background-color: #0b5ee7;
+  background-color: rgb(11, 94, 0);
   color: white;
   width: 100%;
   margin-top: auto;
@@ -186,7 +186,7 @@ const onSubmit = handleSubmit(() => {
 }
 
 .custom-button:hover {
-  background-color: #8586ec;
+  background-color: rgba(11, 94, 0, 0.9);
   /* Màu khi hover */
 }
 </style>

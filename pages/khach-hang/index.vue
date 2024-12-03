@@ -29,7 +29,7 @@
 
     <div class="m-4" style="padding-bottom: 16px;">
       <DataTable :value="customerList" tableStyle="min-width: 50rem" showGridlines>
-        <Column class="text-center" body-style="text-align: center">
+        <Column class="text-center" body-style="text-align: center;width:10px">
           <template #header>
             <span class="m-auto"><b>STT</b></span>
           </template>
